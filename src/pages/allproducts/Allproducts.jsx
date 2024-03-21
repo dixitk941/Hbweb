@@ -18,87 +18,6 @@ const productData = [
     trendingProductName: 'Featured',
     quantity: 1,
   },
-    {
-    id: 2,
-    image: 'https://i.pinimg.com/564x/3e/05/ce/3e05cefbc7eec79ac175ea8490a67939.jpg',
-    title: 'Hand Painted Blue Kaushalam Tea Pot in Aluminium',
-    desc: 'Shop Hand Painted Blue Kaushalam Tea Pot in Aluminium, handmade by Mrinalika Jain. Fair pricing. Ethically made. Positive impact.',
-    price: 150,
-    trendingProductName: 'Featured',
-    quantity: 1,
-  },
-    {
-    id: 3,
-    image: 'https://i.pinimg.com/564x/3e/05/ce/3e05cefbc7eec79ac175ea8490a67939.jpg',
-    title: 'Hand Painted Blue Kaushalam Tea Pot in Aluminium',
-    desc: 'Shop Hand Painted Blue Kaushalam Tea Pot in Aluminium, handmade by Mrinalika Jain. Fair pricing. Ethically made. Positive impact.',
-    price: 150,
-    trendingProductName: 'Featured',
-    quantity: 1,
-  },
-    {
-    id: 4,
-    image: 'https://i.pinimg.com/564x/3e/05/ce/3e05cefbc7eec79ac175ea8490a67939.jpg',
-    title: 'Hand Painted Blue Kaushalam Tea Pot in Aluminium',
-    desc: 'Shop Hand Painted Blue Kaushalam Tea Pot in Aluminium, handmade by Mrinalika Jain. Fair pricing. Ethically made. Positive impact.',
-    price: 150,
-    trendingProductName: 'Featured',
-    quantity: 1,
-  },
-    {
-    id: 5,
-    image: 'https://i.pinimg.com/564x/3e/05/ce/3e05cefbc7eec79ac175ea8490a67939.jpg',
-    title: 'Hand Painted Blue Kaushalam Tea Pot in Aluminium',
-    desc: 'Shop Hand Painted Blue Kaushalam Tea Pot in Aluminium, handmade by Mrinalika Jain. Fair pricing. Ethically made. Positive impact.',
-    price: 150,
-    trendingProductName: 'Featured',
-    quantity: 1,
-  },
-    {
-    id: 6,
-    image: 'https://i.pinimg.com/564x/3e/05/ce/3e05cefbc7eec79ac175ea8490a67939.jpg',
-    title: 'Hand Painted Blue Kaushalam Tea Pot in Aluminium',
-    desc: 'Shop Hand Painted Blue Kaushalam Tea Pot in Aluminium, handmade by Mrinalika Jain. Fair pricing. Ethically made. Positive impact.',
-    price: 150,
-    trendingProductName: 'Featured',
-    quantity: 1,
-  },
-    {
-    id: 7,
-    image: 'https://i.pinimg.com/564x/3e/05/ce/3e05cefbc7eec79ac175ea8490a67939.jpg',
-    title: 'Hand Painted Blue Kaushalam Tea Pot in Aluminium',
-    desc: 'Shop Hand Painted Blue Kaushalam Tea Pot in Aluminium, handmade by Mrinalika Jain. Fair pricing. Ethically made. Positive impact.',
-    price: 150,
-    trendingProductName: 'Featured',
-    quantity: 1,
-  },
-    {
-    id: 8,
-    image: 'https://i.pinimg.com/564x/3e/05/ce/3e05cefbc7eec79ac175ea8490a67939.jpg',
-    title: 'Hand Painted Blue Kaushalam Tea Pot in Aluminium',
-    desc: 'Shop Hand Painted Blue Kaushalam Tea Pot in Aluminium, handmade by Mrinalika Jain. Fair pricing. Ethically made. Positive impact.',
-    price: 150,
-    trendingProductName: 'Featured',
-    quantity: 1,
-  },
-    {
-    id: 9,
-    image: 'https://i.pinimg.com/564x/3e/05/ce/3e05cefbc7eec79ac175ea8490a67939.jpg',
-    title: 'Hand Painted Blue Kaushalam Tea Pot in Aluminium',
-    desc: 'Shop Hand Painted Blue Kaushalam Tea Pot in Aluminium, handmade by Mrinalika Jain. Fair pricing. Ethically made. Positive impact.',
-    price: 150,
-    trendingProductName: 'Featured',
-    quantity: 1,
-  },
-    {
-    id: 10,
-    image: 'https://i.pinimg.com/564x/3e/05/ce/3e05cefbc7eec79ac175ea8490a67939.jpg',
-    title: 'Hand Painted Blue Kaushalam Tea Pot in Aluminium',
-    desc: 'Shop Hand Painted Blue Kaushalam Tea Pot in Aluminium, handmade by Mrinalika Jain. Fair pricing. Ethically made. Positive impact.',
-    price: 150,
-    trendingProductName: 'Featured',
-    quantity: 1,
-  },
   // Add more product data here...
 ];
 
@@ -112,7 +31,7 @@ function Allproducts() {
 
   const addCart = (product) => {
     dispatch(addToCart(product));
-    toast.success('add to cart');
+    toast.success('Added to cart');
   };
 
   useEffect(() => {
@@ -121,10 +40,11 @@ function Allproducts() {
 
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cartItems));
-}, [cartItems])
-useEffect(() => {
-  window.scrollTo(0, 0)
-}, [])
+  }, [cartItems])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   const navigate = useNavigate();
 
@@ -164,7 +84,9 @@ useEffect(() => {
                         </h1>
 
                         <div className="flex justify-center ">
-                          <button className="bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold">
+                          <button 
+                            onClick={() => addCart(item)} // Dispatch addToCart action
+                            className="bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold">
                             Add To Cart
                           </button>
                         </div>
