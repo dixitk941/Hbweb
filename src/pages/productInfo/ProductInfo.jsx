@@ -62,6 +62,30 @@ function ProductInfo() {
         }
     };
 
+    const handleTouchStart = (e) => {
+        const startX = e.touches[0].clientX;
+        const startY = e.touches[0].clientY;
+
+        const handleTouchMove = (e) => {
+            const endX = e.touches[0].clientX;
+            const endY = e.touches[0].clientY;
+            const distX = endX - startX;
+            const distY = endY - startY;
+
+            if (Math.abs(distX) > Math.abs(distY)) {
+                if (distX > 0) {
+                    prevImage();
+                } else {
+                    nextImage();
+                }
+            }
+
+            document.removeEventListener('touchmove', handleTouchMove);
+        };
+
+        document.addEventListener('touchmove', handleTouchMove);
+    };
+
     return (
         <Layout>
             <section className="text-gray-600 body-font overflow-hidden">
@@ -73,49 +97,11 @@ function ProductInfo() {
                                     alt="ecommerce"
                                     className="w-full"
                                     src={products.images ? products.images[currentImageIndex] : ''}
+                                    onTouchStart={handleTouchStart}
                                 />
-                                <button onClick={prevImage} className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center ml-2">
-                                    {"<"}
-                                </button>
-                                <button onClick={nextImage} className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center mr-2">
-                                    {">"}
-                                </button>
                             </div>
                             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                                <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                                    Hitownbears
-                                </h2>
-                                <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                                    {products.title}
-                                </h1>
-                                <div className="flex mb-4">
-                                    {/* Rating icons */}
-                                </div>
-
-                                <div className="flex items-center mb-4">
-                                    <span className="title-font font-medium text-2xl text-gray-900">
-                                        ₹{products.price}
-                                    </span>
-                                    <div className="ml-auto flex">
-                                        {/* Size selection buttons */}
-                                        <div className="flex items-center space-x-4">
-                                            <button onClick={() => setSelectedSize('M')} className={`bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center ${selectedSize === 'M' ? 'bg-gray-300' : ''}`}>
-                                                M
-                                            </button>
-                                            <button onClick={() => setSelectedSize('L')} className={`bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center ${selectedSize === 'L' ? 'bg-gray-300' : ''}`}>
-                                                L
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <button onClick={addCart} className="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                                    Add To Cart
-                                </button>
-
-                                <p className="leading-relaxed border-b-2 mb-5 pb-5">
-                                    {products.description}
-                                </p>
+                                {/* Product details */}
                             </div>
                         </div>}
                 </div>
