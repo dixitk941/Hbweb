@@ -7,7 +7,7 @@ function AddProduct() {
     const [newImageUrl, setNewImageUrl] = useState('');
 
     const addImageUrl = () => {
-        setProducts({ ...products, images: [...products.images, newImageUrl] });
+        setProducts({ ...products, images: [...(products.images || []), newImageUrl] });
         setNewImageUrl('');
     };
 
@@ -21,7 +21,7 @@ function AddProduct() {
                     <div>
                         <input
                             type="text"
-                            value={products.title}
+                            value={products?.title || ''}
                             onChange={(e) => setProducts({ ...products, title: e.target.value })}
                             name='title'
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
@@ -31,7 +31,7 @@ function AddProduct() {
                     <div>
                         <input
                             type="text"
-                            value={products.price}
+                            value={products?.price || ''}
                             onChange={(e) => setProducts({ ...products, price: e.target.value })}
                             name='price'
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
@@ -50,7 +50,7 @@ function AddProduct() {
                         <button onClick={addImageUrl} className='bg-gray-600 text-white font-bold px-2 py-2 rounded-lg'>Add Image</button>
                     </div>
                     <div>
-                        {products.images.map((image, index) => (
+                        {products?.images?.map((image, index) => (
                             <div key={index} className="flex items-center">
                                 <img src={image} alt={`Product ${index}`} className="w-16 h-16 mr-2 rounded-lg" />
                                 <button onClick={() => {
@@ -63,7 +63,7 @@ function AddProduct() {
                     <div>
                         <input
                             type="text"
-                            value={products.category}
+                            value={products?.category || ''}
                             onChange={(e) => setProducts({ ...products, category: e.target.value })}
                             name='category'
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
@@ -75,7 +75,7 @@ function AddProduct() {
                             cols="30"
                             rows="10"
                             name='title'
-                            value={products.description}
+                            value={products?.description || ''}
                             onChange={(e) => setProducts({ ...products, description: e.target.value })}
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                             placeholder='Product desc'
