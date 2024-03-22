@@ -12,7 +12,7 @@ function ProductInfo() {
     const context = useContext(myContext);
     const { loading, setLoading } = context;
 
-    const [products, setProducts] = useState('');
+    const [products, setProducts] = useState(null);
     const [selectedSize, setSelectedSize] = useState('');
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const params = useParams();
@@ -51,11 +51,15 @@ function ProductInfo() {
     }, [cartItems]);
 
     const nextImage = () => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products.images.length);
+        if (products && products.images) {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products.images.length);
+        }
     };
 
     const prevImage = () => {
-        setCurrentImageIndex((prevIndex) => (prevIndex - 1 + products.images.length) % products.images.length);
+        if (products && products.images) {
+            setCurrentImageIndex((prevIndex) => (prevIndex - 1 + products.images.length) % products.images.length);
+        }
     };
 
     return (
@@ -64,11 +68,11 @@ function ProductInfo() {
                 <div className="container px-5 py-10 mx-auto">
                     {products &&
                         <div className="lg:w-4/5 mx-auto flex flex-wrap">
-                            <div className="lg:w-1/3 w-full lg:h-auto object-cover object-center rounded">
+                            <div className="lg:w-1/3 w-full lg:h-auto object-cover object-center rounded relative">
                                 <img
                                     alt="ecommerce"
                                     className="w-full"
-                                    src={products.images[currentImageIndex]}
+                                    src={products.images ? products.images[currentImageIndex] : ''}
                                 />
                                 <button onClick={prevImage} className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center ml-2">
                                     {"<"}
