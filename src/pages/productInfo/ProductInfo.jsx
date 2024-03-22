@@ -7,7 +7,6 @@ import { doc, getDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartSlice';
 import { fireDB } from '../../fireabase/FirebaseConfig';
-import Razorpay from 'razorpay'; // Import Razorpay
 
 function ProductInfo() {
     const context = useContext(myContext);
@@ -15,6 +14,7 @@ function ProductInfo() {
 
     const [products, setProducts] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const params = useParams();
 
     const getProductData = async () => {
@@ -50,17 +50,13 @@ function ProductInfo() {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
-    const key = "rzp_test_XXXX00000XXXX"; //Replace it with your Test Key ID generated from the Dashboard
-const amount = 400000; //in paise
+    const nextImage = () => {
+        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products.images.length);
+    };
 
-window.onload = function() {
-const widgetConfig = {
-	"key": rzp_live_vCbbeJhntDd7gs,
-	"amount": 799,
-};
-const rzpAffordabilitySuite = new RazorpayAffordabilitySuite(widgetConfig);
-rzpAffordabilitySuite.render();
-}
+    const prevImage = () => {
+        setCurrentImageIndex((prevIndex) => (prevIndex - 1 + products.images.length) % products.images.length);
+    };
 
     return (
         <Layout>
@@ -72,8 +68,14 @@ rzpAffordabilitySuite.render();
                                 <img
                                     alt="ecommerce"
                                     className="w-full"
-                                    src={products.imageUrl}
+                                    src={products.images[currentImageIndex]}
                                 />
+                                <button onClick={prevImage} className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center ml-2">
+                                    {"<"}
+                                </button>
+                                <button onClick={nextImage} className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center mr-2">
+                                    {">"}
+                                </button>
                             </div>
                             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                                 <h2 className="text-sm title-font text-gray-500 tracking-widest">
@@ -115,8 +117,6 @@ rzpAffordabilitySuite.render();
                                     {products.description}
                                 </p>
                             </div>
-
-                            <div id="razorpay-container"></div>
                         </div>}
                 </div>
             </section>
