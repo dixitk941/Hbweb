@@ -50,43 +50,17 @@ function ProductInfo() {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
-    useEffect(() => {
-        const key = "rzp_live_vCbbeJhntDd7gs"; //Replace it with your Test Key ID generated from the Dashboard
-        const amount = 400000; //in paise
+    const key = "rzp_test_XXXX00000XXXX"; //Replace it with your Test Key ID generated from the Dashboard
+const amount = 400000; //in paise
 
-        const options = {
-            key: key,
-            amount: amount,
-            currency: 'INR', // Set currency as per your requirement
-            name: 'Your Company Name',
-            description: 'Product Purchase',
-            image: '/your_logo.png', // Add your logo URL
-            handler: function(response) {
-                alert(response.razorpay_payment_id);
-            },
-            prefill: {
-                name: 'John Doe',
-                email: 'john@example.com',
-                contact: '9999999999'
-            },
-            notes: {
-                address: 'Razorpay Corporate Office'
-            },
-            theme: {
-                color: '#3399cc'
-            }
-        };
-
-        const rzp = new Razorpay(options);
-
-        rzp.open();
-
-        return () => {
-            rzp.close();
-        };
-
-    }, []);
-
+window.onload = function() {
+const widgetConfig = {
+	"key": key,
+	"amount": amount,
+};
+const rzpAffordabilitySuite = new RazorpayAffordabilitySuite(widgetConfig);
+rzpAffordabilitySuite.render();
+}
 
     return (
         <Layout>
