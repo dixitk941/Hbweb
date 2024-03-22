@@ -88,6 +88,14 @@ function Navbar() {
                       Signup
                     </Link>
                   </div>}
+                  <div className="flow-root">
+                    <Link to={'/'} className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer">
+                      <img
+                        className="inline-block w-10 h-10 rounded-full"
+                        src="https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg"
+                        alt="Dan_Abromov" />                                        </Link>
+                  </div>
+                </div>
 
                 <div className="border-t border-gray-200 px-4 py-6">
                   <a href="#" className="-m-2 flex items-center p-2">
@@ -109,7 +117,7 @@ function Navbar() {
       <header className="relative bg-white">
         <p className="flex h-10 items-center justify-center bg-pink-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8" 
         style={{ backgroundColor: mode === 'dark' ? 'rgb(62 64 66)' : '', color: mode === 'dark' ? 'white' : '', }}>
-          Get free delivery on orders over ₹999
+          Get free delivery on orders over ₹300
         </p>
 
         <nav aria-label="Top" className="bg-gray-100 px-4 sm:px-6 lg:px-8 shadow-xl " style={{ backgroundColor: mode === 'dark' ? '#282c34' : '', color: mode === 'dark' ? 'white' : '', }}>
