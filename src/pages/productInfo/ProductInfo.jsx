@@ -55,8 +55,8 @@ const amount = 400000; //in paise
 
 window.onload = function() {
 const widgetConfig = {
-	"key": key,
-	"amount": amount,
+	"key": rzp_live_vCbbeJhntDd7gs,
+	"amount": 799,
 };
 const rzpAffordabilitySuite = new RazorpayAffordabilitySuite(widgetConfig);
 rzpAffordabilitySuite.render();
