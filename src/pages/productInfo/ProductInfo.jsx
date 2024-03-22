@@ -45,15 +45,12 @@ function ProductInfo() {
     // add to cart
     const addCart = (products) => {
         dispatch(addToCart(products))
-        toast.success('add to cart');
+        toast.success('Added to cart');
     }
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems])
-
-
-
 
     return (
         <Layout>
@@ -61,11 +58,22 @@ function ProductInfo() {
                 <div className="container px-5 py-10 mx-auto">
                     {products && 
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
-                        <img
-                            alt="ecommerce"
-                            className="lg:w-1/3 w-full lg:h-auto  object-cover object-center rounded"
-                            src={products.imageUrl}
-                        />
+                        <div className="lg:w-1/3 w-full lg:h-auto  object-cover object-center rounded">
+                            <img
+                                alt="ecommerce"
+                                className="w-full"
+                                src={products.imageUrl}
+                            />
+                            {/* Add Multiple Images here */}
+                            {/* {products.images.map((image, index) => (
+                                <img
+                                    key={index}
+                                    alt={`Product Image ${index}`}
+                                    className="w-full mt-3"
+                                    src={image}
+                                />
+                            ))} */}
+                        </div>
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">
                                 Hitownbears
@@ -145,7 +153,8 @@ function ProductInfo() {
                                             <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
                                         </svg>
                                     </a>
-                                    <a className="text-gray-500">
+
+                                                                        <a className="text-gray-500">
                                         <svg
                                             fill="currentColor"
                                             strokeLinecap="round"
@@ -172,28 +181,41 @@ function ProductInfo() {
                                 </span>
                             </div>
 
-                            <div className="flex">
+                            <div className="flex items-center mb-4">
                                 <span className="title-font font-medium text-2xl text-gray-900">
-                                ₹{products.price}
+                                    ₹{products.price}
                                 </span>
-                                <button  onClick={()=>addCart(products)} className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                                    Add To Cart
-                                </button>
-                                <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-                                    <svg
-                                        fill="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        className="w-5 h-5"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
-                                    </svg>
-                                </button>
+                                <div className="ml-auto flex">
+                                    {/* Add Size Chart here */}
+                                    <div className="flex items-center space-x-4">
+                                        <button className="bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center">
+                                            M
+                                        </button>
+                                        <button className="bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center">
+                                            L
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
 
-                             <p className="leading-relaxed border-b-2 mb-5 pb-5">
+                            <button  onClick={()=>addCart(products)} className="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                                Add To Cart
+                            </button>
+
+                            <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+                                <svg
+                                    fill="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    className="w-5 h-5"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                                </svg>
+                            </button>
+
+                            <p className="leading-relaxed border-b-2 mb-5 pb-5">
                                 {products.description}
                             </p>
                         </div>
@@ -205,4 +227,5 @@ function ProductInfo() {
     )
 }
 
-export default ProductInfo
+export default ProductInfo;
+
