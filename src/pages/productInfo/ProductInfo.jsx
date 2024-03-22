@@ -100,6 +100,12 @@ function ProductInfo() {
                                     onTouchStart={handleTouchStart}
                                     onTouchMove={(e) => e.preventDefault()}
                                 />
+                                <button onClick={prevImage} className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center ml-2">
+                                    {"<"}
+                                </button>
+                                <button onClick={nextImage} className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center mr-2">
+                                    {">"}
+                                </button>
                             </div>
                             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                                 <h2 className="text-sm title-font text-gray-500 tracking-widest">
