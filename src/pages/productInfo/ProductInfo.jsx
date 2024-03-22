@@ -19,7 +19,7 @@ function ProductInfo() {
     const getProductData = async () => {
         setLoading(true)
         try {
-            const productTemp = await getDoc(doc(fireDB, "products", karan.id))
+            const productTemp = await getDoc(doc(fireDB, "products", params.id))
             // console.log(productTemp)
             setProducts(productTemp.data());
             // console.log(productTemp.data())
