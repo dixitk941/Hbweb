@@ -98,6 +98,7 @@ function ProductInfo() {
                                     className="w-full"
                                     src={products.images ? products.images[currentImageIndex] : ''}
                                     onTouchStart={handleTouchStart}
+                                    onTouchMove={(e) => e.preventDefault()}
                                 />
                             </div>
                             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
