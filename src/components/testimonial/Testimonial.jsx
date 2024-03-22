@@ -16,19 +16,19 @@ function Testimonial() {
                         <div className="lg:w-1/3 lg:mb-0 mb-6 p-4">
                             <div className="h-full text-center">
                                 <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://cdn-icons-png.flaticon.com/128/2763/2763444.png" />
-                                <p  style={{color: mode === 'dark' ? 'white' : ''}}className="leading-relaxed">Edison bulb retro cloud bread echo park, helvetica stumptown taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin coffee ennui shaman taiyaki vape DIY tote bag drinking vinegar cronut adaptogen squid fanny pack vaporware.</p>
+                                <p  style={{color: mode === 'dark' ? 'white' : ''}}className="leading-relaxed">I recently purchased the Men's Slim Fit Skyblue Printed Casual Shirt and I must say, I'm thoroughly impressed! The fabric feels incredibly soft against my skin, and the fit is just perfect. I've received so many compliments whenever I wear it out. The subtle print adds a touch of uniqueness to my look without being too flashy. It's become my go-to shirt for any casual occasion. I highly recommend it to anyone looking for style and comfort combined!.</p>
                                 <span className="inline-block h-1 w-10 rounded bg-pink-500 mt-6 mb-4" />
-                                <h2 style={{color: mode === 'dark' ? '#ff4162' : ''}} className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase">Karan dixit</h2>
-                                <p style={{color: mode === 'dark' ? 'white' : ''}} className="text-gray-500">UI Develeoper</p>
+                                <h2 style={{color: mode === 'dark' ? '#ff4162' : ''}} className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase">Prachi dixit</h2>
+                                <p style={{color: mode === 'dark' ? 'white' : ''}} className="text-gray-500">customer</p>
                             </div>
                         </div>
                         <div className="lg:w-1/3 lg:mb-0 p-4">
                             <div className="h-full text-center">
                                 <img alt="testimonial" className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100" src="https://webknudocs.vercel.app/logo/react.png" />
-                                <p style={{color: mode === 'dark' ? 'white' : ''}} className="leading-relaxed">Edison bulb retro cloud bread echo park, helvetica stumptown taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin coffee ennui shaman taiyaki vape DIY tote bag drinking vinegar cronut adaptogen squid fanny pack vaporware.</p>
+                                <p style={{color: mode === 'dark' ? 'white' : ''}} className="leading-relaxed">I recently purchased the Men's Slim Fit Skyblue Printed Casual Shirt and I must say, I'm thoroughly impressed! The fabric feels incredibly soft against my skin, and the fit is just perfect. I've received so many compliments whenever I wear it out. The subtle print adds a touch of uniqueness to my look without being too flashy. It's become my go-to shirt for any casual occasion. I highly recommend it to anyone looking for style and comfort combined!</p>
                                 <span className="inline-block h-1 w-10 rounded bg-pink-500 mt-6 mb-4" />
-                                <h2 style={{color: mode === 'dark' ? '#ff4162' : ''}} className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase">Aakash dixit</h2>
-                                <p  style={{color: mode === 'dark' ? 'white' : ''}}className="text-gray-500">Owner</p>
+                                <h2 style={{color: mode === 'dark' ? '#ff4162' : ''}} className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase">Jhon-D</h2>
+                                <p  style={{color: mode === 'dark' ? 'white' : ''}}className="text-gray-500">customer</p>
                             </div>
                         </div>
                     </div>
