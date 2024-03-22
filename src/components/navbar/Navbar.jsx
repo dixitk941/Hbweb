@@ -181,7 +181,7 @@ function Navbar() {
                   <a href="#" className="flex items-center text-gray-700 ">
                     <img
                       className="inline-block w-10 h-10 rounded-full"
-                      src="https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg"
+                      src="https://firebasestorage.googleapis.com/v0/b/hbweb-a7934.appspot.com/o/115-1150152_default-profile-picture-avatar-png-green.png?alt=media&token=7e58296c-63e1-41b2-8923-c7871cf2a37d"
                       alt="Dan_Abromov" />
                   </a>
                 </div>
