@@ -111,13 +111,15 @@ rzpAffordabilitySuite.render();
                                     {/* Favorite icon */}
                                 </button>
 
-                                <div id="razorpay-affordability-widget"> </div>
+                                
                                 
 
                                 <p className="leading-relaxed border-b-2 mb-5 pb-5">
                                     {products.description}
                                 </p>
                             </div>
+
+				<div id="razorpay-affordability-widget"> </div>
                         </div>}
                 </div>
             </section>
