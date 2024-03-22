@@ -171,9 +171,6 @@ function ProductInfo() {
                                     </a>
                                 </span>
                             </div>
-                            <p className="leading-relaxed border-b-2 mb-5 pb-5">
-                                {products.description}
-                            </p>
 
                             <div className="flex">
                                 <span className="title-font font-medium text-2xl text-gray-900">
@@ -195,6 +192,10 @@ function ProductInfo() {
                                     </svg>
                                 </button>
                             </div>
+
+                             <p className="leading-relaxed border-b-2 mb-5 pb-5">
+                                {products.description}
+                            </p>
                         </div>
                     </div>}
                 </div>
