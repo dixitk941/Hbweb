@@ -7,8 +7,10 @@ function AddProduct() {
     const [newImageUrl, setNewImageUrl] = useState('');
 
     const addImageUrl = () => {
-        setProducts({ ...products, images: [...(products.images || []), newImageUrl] });
-        setNewImageUrl('');
+        if (newImageUrl.trim() !== '') {
+            setProducts({ ...products, images: [...(products.images || []), newImageUrl] });
+            setNewImageUrl('');
+        }
     };
 
     return (
@@ -95,4 +97,5 @@ function AddProduct() {
 }
 
 export default AddProduct;
+
 
