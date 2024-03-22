@@ -5,11 +5,19 @@ function AddProduct() {
     const context = useContext(myContext);
     const { products, setProducts, addProduct } = context;
     const [newImageUrl, setNewImageUrl] = useState('');
+    const [newCoverImageUrl, setNewCoverImageUrl] = useState('');
 
     const addImageUrl = () => {
         if (newImageUrl.trim() !== '') {
             setProducts({ ...products, images: [...(products.images || []), newImageUrl] });
             setNewImageUrl('');
+        }
+    };
+
+    const addCoverImageUrl = () => {
+        if (newCoverImageUrl.trim() !== '') {
+            setProducts({ ...products, coverImageUrl: newCoverImageUrl });
+            setNewCoverImageUrl('');
         }
     };
 
@@ -27,7 +35,7 @@ function AddProduct() {
                             onChange={(e) => setProducts({ ...products, title: e.target.value })}
                             name='title'
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
-                            placeholder='Product title (Optional)'
+                            placeholder='Product title'
                         />
                     </div>
                     <div>
@@ -37,7 +45,7 @@ function AddProduct() {
                             onChange={(e) => setProducts({ ...products, price: e.target.value })}
                             name='price'
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
-                            placeholder='Product price (Optional)'
+                            placeholder='Product price'
                         />
                     </div>
                     <div>
@@ -47,9 +55,20 @@ function AddProduct() {
                             onChange={(e) => setNewImageUrl(e.target.value)}
                             name='imageurl'
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
-                            placeholder='Enter image URL (Optional)'
+                            placeholder='Enter image URL'
                         />
                         <button onClick={addImageUrl} className='bg-gray-600 text-white font-bold px-2 py-2 rounded-lg'>Add Image</button>
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            value={newCoverImageUrl}
+                            onChange={(e) => setNewCoverImageUrl(e.target.value)}
+                            name='coverimageurl'
+                            className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
+                            placeholder='Enter cover image URL'
+                        />
+                        <button onClick={addCoverImageUrl} className='bg-gray-600 text-white font-bold px-2 py-2 rounded-lg'>Add Cover Image</button>
                     </div>
                     <div>
                         {products?.images?.map((image, index) => (
@@ -69,7 +88,7 @@ function AddProduct() {
                             onChange={(e) => setProducts({ ...products, category: e.target.value })}
                             name='category'
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
-                            placeholder='Product category (Optional)'
+                            placeholder='Product category'
                         />
                     </div>
                     <div>
@@ -80,7 +99,7 @@ function AddProduct() {
                             value={products?.description || ''}
                             onChange={(e) => setProducts({ ...products, description: e.target.value })}
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
-                            placeholder='Product desc (Optional)'
+                            placeholder='Product desc'
                         ></textarea>
                     </div>
                     <div className='flex justify-center mb-3'>
@@ -97,5 +116,6 @@ function AddProduct() {
 }
 
 export default AddProduct;
+
 
 
