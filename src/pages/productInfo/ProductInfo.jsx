@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Layout from '../../components/layout/Layout'
+import React, { useContext, useEffect, useState } from 'react';
+import Layout from '../../components/layout/Layout';
 import myContext from '../../context/data/myContext';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartSlice';
 import { fireDB } from '../../fireabase/FirebaseConfig';
+import Razorpay from 'razorpay'; // Import Razorpay
 
 function ProductInfo() {
     const context = useContext(myContext);
@@ -45,21 +46,47 @@ function ProductInfo() {
         }
     };
 
-    const key = "rzp_live_vCbbeJhntDd7gs"; //Replace it with your Test Key ID generated from the Dashboard
-const amount = 400000; //in paise
-
-window.onload = function() {
-const widgetConfig = {
-	"key": key,
-	"amount": amount,
-};
-const rzpAffordabilitySuite = new RazorpayAffordabilitySuite(widgetConfig);
-rzpAffordabilitySuite.render();
-}
-
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
+
+    useEffect(() => {
+        const key = "rzp_live_vCbbeJhntDd7gs"; //Replace it with your Test Key ID generated from the Dashboard
+        const amount = 400000; //in paise
+
+        const options = {
+            key: key,
+            amount: amount,
+            currency: 'INR', // Set currency as per your requirement
+            name: 'Your Company Name',
+            description: 'Product Purchase',
+            image: '/your_logo.png', // Add your logo URL
+            handler: function(response) {
+                alert(response.razorpay_payment_id);
+            },
+            prefill: {
+                name: 'John Doe',
+                email: 'john@example.com',
+                contact: '9999999999'
+            },
+            notes: {
+                address: 'Razorpay Corporate Office'
+            },
+            theme: {
+                color: '#3399cc'
+            }
+        };
+
+        const rzp = new Razorpay(options);
+
+        rzp.open();
+
+        return () => {
+            rzp.close();
+        };
+
+    }, []);
+
 
     return (
         <Layout>
@@ -105,21 +132,17 @@ rzpAffordabilitySuite.render();
                                 <button onClick={addCart} className="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                                     Add To Cart
                                 </button>
-                                
 
                                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                                     {/* Favorite icon */}
                                 </button>
-
-                                
-                                
 
                                 <p className="leading-relaxed border-b-2 mb-5 pb-5">
                                     {products.description}
                                 </p>
                             </div>
 
-				<div id="razorpay-affordability-widget"> </div>
+                            <div id="razorpay-container"></div>
                         </div>}
                 </div>
             </section>
