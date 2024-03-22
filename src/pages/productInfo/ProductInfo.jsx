@@ -45,6 +45,18 @@ function ProductInfo() {
         }
     };
 
+    const key = "rzp_live_vCbbeJhntDd7gs"; //Replace it with your Test Key ID generated from the Dashboard
+const amount = 400000; //in paise
+
+window.onload = function() {
+const widgetConfig = {
+	"key": key,
+	"amount": amount,
+};
+const rzpAffordabilitySuite = new RazorpayAffordabilitySuite(widgetConfig);
+rzpAffordabilitySuite.render();
+}
+
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
@@ -93,10 +105,14 @@ function ProductInfo() {
                                 <button onClick={addCart} className="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                                     Add To Cart
                                 </button>
+                                
 
                                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                                     {/* Favorite icon */}
                                 </button>
+
+                                <div id="razorpay-affordability-widget"> </div>
+                                
 
                                 <p className="leading-relaxed border-b-2 mb-5 pb-5">
                                     {products.description}
