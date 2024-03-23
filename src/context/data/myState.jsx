@@ -33,7 +33,8 @@ function myState(props) {
                 day: "2-digit",
                 year: "numeric",
             }
-        )
+        ),
+        size: null // Add size field to products state
     });
 
     const addProduct = async () => {
