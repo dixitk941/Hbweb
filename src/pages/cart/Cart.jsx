@@ -40,7 +40,7 @@ function Cart() {
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [Sizeofproduct, setSizeofproduct] = useState("");
+  const [Sizeofproduct, setSizeofproduct] = useState(""); // Added Sizeofproduct state
 
   const buyNow = async () => {
     // Implement buyNow function
@@ -53,15 +53,16 @@ function Cart() {
         <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0 ">
           <div className="rounded-lg md:w-2/3">
             {cartItems.map((item, index) => {
-              const { title, price, description, coverImageUrl } = item; // Change imageUrl to coverImageUrl
+              const { title, price, description, coverImageUrl, size } = item; // Added size destructuring
               return (
                 <div key={index} className="justify-between mb-6 rounded-lg border drop-shadow-xl bg-white p-6 sm:flex sm:justify-start" style={{ backgroundColor: mode === 'dark' ? 'rgb(32 33 34)' : '', color: mode === 'dark' ? 'white' : '', }}>
-                  <img src={coverImageUrl} alt="product-image" className="w-full rounded-lg sm:w-40" /> {/* Change imageUrl to coverImageUrl */}
+                  <img src={coverImageUrl} alt="product-image" className="w-full rounded-lg sm:w-40" /> 
                   <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                     <div className="mt-5 sm:mt-0">
                       <h2 className="text-lg font-bold text-gray-900" style={{ color: mode === 'dark' ? 'white' : '' }}>{title}</h2>
                       <h2 className="text-sm text-gray-900" style={{ color: mode === 'dark' ? 'white' : '' }}>{description}</h2>
                       <p className="mt-1 text-xs font-semibold text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{price}</p>
+                      <p className="mt-1 text-xs font-semibold text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>Size: {size}</p> {/* Added size display */}
                     </div>
                     <div onClick={() => deleteCart(item)} className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 cursor-pointer text-gray-500 hover:text-red-500">
@@ -111,5 +112,6 @@ function Cart() {
 }
 
 export default Cart;
+
 
 
