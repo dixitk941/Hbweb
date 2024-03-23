@@ -5,7 +5,6 @@ import { FiSun } from 'react-icons/fi'
 import { Link } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react'
 import { RxCross2 } from 'react-icons/rx'
-import { IoMdPerson } from 'react-icons/io'
 import { useSelector } from 'react-redux';
 
 function Navbar() {
@@ -89,16 +88,14 @@ function Navbar() {
                       Signup
                     </Link>
                   </div>}
-                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-  {/* ... */}
-  <div className="hidden lg:ml-8 lg:flex">
-    <a href="#" className="flex items-center text-gray-700 ">
-      <IoMdPerson className="block h-auto w-5 flex-shrink-0" />
-      <span className="ml-3 block text-sm font-medium" style={{ color: mode === 'dark' ? 'white' : '', }}>Account</span>
-    </a>
-  </div>
-  {/* ... */}
-</div>
+                  <div className="flow-root">
+                    <Link to={'/'} className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer">
+                      <img
+                        className="inline-block w-10 h-10 rounded-full"
+                        src="https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg"
+                        alt="Dan_Abromov" />                                        </Link>
+                  </div>
+                </div>
 
                 <div className="border-t border-gray-200 px-4 py-6">
                   <a href="#" className="-m-2 flex items-center p-2">
@@ -184,7 +181,7 @@ function Navbar() {
                   <a href="#" className="flex items-center text-gray-700 ">
                     <img
                       className="inline-block w-10 h-10 rounded-full"
-                      src="https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg"
+                      src="https://firebasestorage.googleapis.com/v0/b/hbweb-a7934.appspot.com/o/Luca-Profile-Avatars-3.webp?alt=media&token=482afe79-4492-4b83-bc76-fb892615cc9d"
                       alt="Dan_Abromov" />
                   </a>
                 </div>
@@ -220,4 +217,3 @@ function Navbar() {
 }
 
 export default Navbar
-
