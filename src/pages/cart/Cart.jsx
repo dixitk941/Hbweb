@@ -40,6 +40,7 @@ function Cart() {
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [Sizeofproduct, setSizeofproduct] = useState("");
 
   const buyNow = async () => {
     // Implement buyNow function
@@ -94,10 +95,12 @@ function Cart() {
               address={address}
               pincode={pincode}
               phoneNumber={phoneNumber}
+              Sizeofproduct={Sizeofproduct}
               setName={setName}
               setAddress={setAddress}
               setPincode={setPincode}
               setPhoneNumber={setPhoneNumber}
+              setSizeofproduct={setSizeofproduct}
               buyNow={buyNow}
             />
           </div>
