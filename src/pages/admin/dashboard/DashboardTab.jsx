@@ -98,8 +98,10 @@ function DashboardTab() {
                                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
                                                             {index + 1}.
                                                         </td>
-                                                        <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap">
-                                                            <img className='w-16' src={CoverImageUrl} alt="img" />
+                                                        <td className="px-6 py-4 font-medium text-black whitespace-nowrap">
+    <img className='w-16' src={item.CoverImageUrl} alt="Cover Image" />
+</td>
+
                                                         </th>
                                                         <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
                                                             {title}
@@ -197,8 +199,10 @@ function DashboardTab() {
                                             <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
                                                 {allorder.paymentId}
                                             </td>
-                                            <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap">
-                                                <img className='w-16' src={CoverImageUrl} alt="img" />
+                                            <td className="px-6 py-4 font-medium text-black whitespace-nowrap">
+    <img className='w-16' src={item.CoverImageUrl} alt="Cover Image" />
+</td>
+
                                             </th>
                                             <td className="px-6 py-4 text-black " style={{ color: mode === 'dark' ? 'white' : '' }}>
                                                 {title}
