@@ -53,6 +53,7 @@ function App() {
             </ProtectedRouteForAdmin>
           } />
           <Route path="/*" element={<NoPage />} />
+          <Route path='/privacypolicy' element={<PrivacyPolicy />} />
         </Routes>
         <ToastContainer/>
       </Router>
