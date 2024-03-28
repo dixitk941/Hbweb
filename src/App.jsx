@@ -17,10 +17,10 @@ import Signup from './pages/registration/Signup';
 import ProductInfo from './pages/productInfo/ProductInfo';
 import AddProduct from './pages/admin/page/AddProduct';
 import UpdateProduct from './pages/admin/page/UpdateProduct';
+import PrivacyPolicy from './pages/PrivacyPolicy'; // Import PrivacyPolicy component
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Allproducts from './pages/allproducts/Allproducts';
-import PrivacyPolicy from './pages/PrivacyPolicy'; // Assuming you placed PrivacyPolicy.js in a "pages" folder
 
 function App() {
   return (
@@ -37,7 +37,7 @@ function App() {
           <Route path='/productinfo/:id' element={<ProductInfo/>} />
           <Route path='/addproduct' element={<ProtectedRouteForAdmin><AddProduct/></ProtectedRouteForAdmin>} />
           <Route path='/updateproduct' element={<ProtectedRouteForAdmin><UpdateProduct/></ProtectedRouteForAdmin>} />
-          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+          <Route path='/privacypolicy' element={<PrivacyPolicy />} /> {/* Add this line for Privacy Policy route */}
           <Route path="/*" element={<NoPage />} />
         </Routes>
         <ToastContainer/>
@@ -60,8 +60,7 @@ export const ProtectedRoute = ({children}) => {
 
 // admin 
 export const ProtectedRouteForAdmin = ({children})=> {
-  const storedUser = localStorage.getItem('user');
-  const admin = storedUser ? JSON.parse(storedUser) : null;
+  const admin = JSON.parse(localStorage.getItem('user'))
   
   if(admin && admin.user.email === 'dixitk941@gmail.com'){
     return children
