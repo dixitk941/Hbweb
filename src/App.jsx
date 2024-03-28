@@ -20,7 +20,6 @@ import UpdateProduct from './pages/admin/page/UpdateProduct';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Allproducts from './pages/allproducts/Allproducts';
-import PrivacyPolicy from './pages/Privacy/PrivacyPolicy';
 function App() {
   return (
     <MyState>
@@ -53,7 +52,6 @@ function App() {
             </ProtectedRouteForAdmin>
           } />
           <Route path="/*" element={<NoPage />} />
-          <Route path='/privacypolicy' element={<PrivacyPolicy />} />
         </Routes>
         <ToastContainer/>
       </Router>
