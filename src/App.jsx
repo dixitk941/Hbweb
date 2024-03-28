@@ -1,11 +1,5 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
-
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/home/Home';
 import Order from './pages/order/Order';
 import Cart from './pages/cart/Cart';
@@ -20,7 +14,7 @@ import UpdateProduct from './pages/admin/page/UpdateProduct';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Allproducts from './pages/allproducts/Allproducts';
-import PrivacyPolicy from './pages/PrivacyPolicy'; // Assuming you placed PrivacyPolicy.js in a "pages" folder
+import PrivacyPolicy from './pages/privacy/PrivacyPolicy'; // Update the path accordingly
 
 function App() {
   return (
@@ -46,26 +40,4 @@ function App() {
   )
 }
 
-export default App 
-
-// user 
-export const ProtectedRoute = ({children}) => {
-  const user = localStorage.getItem('user')
-  if(user){
-    return children
-  }else{
-    return <Navigate to={'/login'}/>
-  }
-}
-
-// admin 
-export const ProtectedRouteForAdmin = ({children})=> {
-  const admin = JSON.parse(localStorage.getItem('user'))
-  
-  if(admin && admin.user.email === 'dixitk941@gmail.com'){
-    return children
-  }
-  else{
-    return <Navigate to={'/login'}/>
-  }
-}
+export default App;
