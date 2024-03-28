@@ -27,6 +27,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/allproducts" element={<Allproducts />} />
           <Route path="/order" element={
             <ProtectedRoute>
@@ -52,7 +53,7 @@ function App() {
               <UpdateProduct/>
             </ProtectedRouteForAdmin>
           } />
-          <Route path='/privacypolicy' element={<PrivacyPolicy/>} />
+         
           <Route path="/*" element={<NoPage />} />
   
         </Routes>
