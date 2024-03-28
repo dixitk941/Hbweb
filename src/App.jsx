@@ -17,10 +17,10 @@ import Signup from './pages/registration/Signup';
 import ProductInfo from './pages/productInfo/ProductInfo';
 import AddProduct from './pages/admin/page/AddProduct';
 import UpdateProduct from './pages/admin/page/UpdateProduct';
-import PrivacyPolicy from './pages/PrivacyPolicy'; // Import PrivacyPolicy component
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Allproducts from './pages/allproducts/Allproducts';
+import PrivacyPolicy from './pages/PrivacyPolicy'; // Assuming you placed PrivacyPolicy.js in a "pages" folder
 
 function App() {
   return (
