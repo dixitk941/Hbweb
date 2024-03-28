@@ -52,8 +52,9 @@ function App() {
               <UpdateProduct/>
             </ProtectedRouteForAdmin>
           } />
+          <Route path='/privacypolicy' element={<PrivacyPolicy/>} />
           <Route path="/*" element={<NoPage />} />
-          <Route path='/privacypolicy' element={<PrivacyPolicy />} />
+  
         </Routes>
         <ToastContainer/>
       </Router>
