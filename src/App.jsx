@@ -20,7 +20,7 @@ import UpdateProduct from './pages/admin/page/UpdateProduct';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Allproducts from './pages/allproducts/Allproducts';
-import PrivacyPolicy from './pages/Privacy/PrivacyPolicy';
+import PrivacyPolicy from './pages/privacypolicy/PrivacyPolicy';
 function App() {
   return (
     <MyState>
