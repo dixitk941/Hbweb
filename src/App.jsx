@@ -28,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+
           <Route path="/allproducts" element={<Allproducts />} />
           <Route path="/order" element={
             <ProtectedRoute>
