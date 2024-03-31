@@ -56,7 +56,7 @@ function Footer() {
             </div>
           </div>
           <p className="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4" style={{ color: mode === 'dark' ? 'white' : '' }}>
-            Your privacy is important to us. 
+           <h6>Your privacy is important to us. 
 
             Privacy Policy
 
@@ -97,7 +97,7 @@ Contact Us
 
 If you have any questions or concerns about our Privacy Policy, please contact us at [Insert Contact Information].
 
-Last updated: 31 march 2024
+Last updated: 31 march 2024</h6>
           </p>
         </div>
 
