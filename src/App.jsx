@@ -34,8 +34,8 @@ export const ProtectedRoute = ({ children }) => {
 
 // Define ProtectedRouteForAdmin component
 export const ProtectedRouteForAdmin = ({ children }) => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (user && user.email === 'dixitk941@gmail.com') {
+  const admin = JSON.parse(localStorage.getItem('user'));
+  if (admin && admin.user && admin.user.email === 'dixitk941@gmail.com') {
     return children;
   } else {
     return <Navigate to={'/login'} />;
@@ -48,11 +48,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/privacypolicy" element={
-            <ProtectedRoute>
-              <PrivacyPolicy />
-            </ProtectedRoute>
-          } />
+          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/allproducts" element={<Allproducts />} />
           <Route path="/order" element={
             <ProtectedRoute>
