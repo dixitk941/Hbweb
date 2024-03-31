@@ -6,14 +6,13 @@ import {getAuth} from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAmArcMKfNsMRIpQIT23otEAZOz5oMKqkQ",
-  authDomain: "hbweb-a7934.firebaseapp.com",
-  databaseURL: "https://hbweb-a7934-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "hbweb-a7934",
-  storageBucket: "hbweb-a7934.appspot.com",
-  messagingSenderId: "318118672051",
-  appId: "1:318118672051:web:5e5b5618fcbac1e89c62c6",
-  measurementId: "G-8HTBH5FC5R"
+  apiKey: "AIzaSyCD1PpIe8wgn4cNzE0yL4XMdnbCHlLaj5I",
+  authDomain: "hitownbears-79d16.firebaseapp.com",
+  projectId: "hitownbears-79d16",
+  storageBucket: "hitownbears-79d16.appspot.com",
+  messagingSenderId: "674455266041",
+  appId: "1:674455266041:web:72338c0e987075beeef828",
+  measurementId: "G-GSC4BDWSXE"
 };
 
 // Initialize Firebase
