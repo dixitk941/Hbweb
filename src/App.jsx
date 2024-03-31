@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -21,19 +21,38 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Allproducts from './pages/allproducts/Allproducts';
 import PrivacyPolicy from './pages/privacypolicy/PrivacyPolicy';
+
+// Define ProtectedRoute components
+export const ProtectedRoute = ({ children }) => {
+  const user = localStorage.getItem('user');
+  if (user) {
+    return children;
+  } else {
+    return <Navigate to={'/login'} />;
+  }
+};
+
+// Define ProtectedRouteForAdmin component
+const ProtectedRouteForAdmin = ({ children }) => {
+  const admin = JSON.parse(localStorage.getItem('user'));
+  if (admin && admin.user.email === 'dixitk941@gmail.com') {
+    return children;
+  } else {
+    return <Navigate to={'/login'} />;
+  }
+};
+
 function App() {
   return (
     <MyState>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-           <Route path="/privacypolicy" element={
-  <ProtectedRoute>
-    <PrivacyPolicy />
-  </ProtectedRoute>
-} />
-
-
+          <Route path="/privacypolicy" element={
+            <ProtectedRoute>
+              <PrivacyPolicy />
+            </ProtectedRoute>
+          } />
           <Route path="/allproducts" element={<Allproducts />} />
           <Route path="/order" element={
             <ProtectedRoute>
@@ -59,40 +78,12 @@ function App() {
               <UpdateProduct/>
             </ProtectedRouteForAdmin>
           } />
-         
           <Route path="/*" element={<NoPage />} />
-  
         </Routes>
         <ToastContainer/>
       </Router>
     </MyState>
-
-  )
+  );
 }
 
-export default App 
-
-// user 
-
-export const ProtectedRoute = ({children}) => {
-  const user = localStorage.getItem('user')
-  if(user){
-    return children
-  }else{
-    return <Navigate to={'/login'}/>
-  }
-}
-
-// admin 
-
-const ProtectedRouteForAdmin = ({children})=> {
-  const admin = JSON.parse(localStorage.getItem('user'))
-  
-  if(admin.user.email === 'dixitk941@gmail.com'){
-    return children
-  }
-  else{
-    return <Navigate to={'/login'}/>
-  }
-
-}
+export default App;
