@@ -17,8 +17,6 @@ import Signup from './pages/registration/Signup';
 import ProductInfo from './pages/productInfo/ProductInfo';
 import AddProduct from './pages/admin/page/AddProduct';
 import UpdateProduct from './pages/admin/page/UpdateProduct';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Allproducts from './pages/allproducts/Allproducts';
 import PrivacyPolicy from './pages/privacypolicy/PrivacyPolicy';
 
@@ -40,6 +38,40 @@ export const ProtectedRouteForAdmin = ({ children }) => {
   } else {
     return <Navigate to={'/login'} />;
   }
+};
+
+// Define ProtectedRoute component
+const ProtectedRoute = ({ children, ...rest }) => {
+  const user = localStorage.getItem('user');
+  return (
+    <Route
+      {...rest}
+      element={
+        user ? (
+          children
+        ) : (
+          <Navigate to="/login" replace />
+        )
+      }
+    />
+  );
+};
+
+// Define ProtectedRouteForAdmin component
+const ProtectedRouteForAdmin = ({ children, ...rest }) => {
+  const admin = JSON.parse(localStorage.getItem('user'));
+  return (
+    <Route
+      {...rest}
+      element={
+        admin && admin.user && admin.user.email === 'dixitk941@gmail.com' ? (
+          children
+        ) : (
+          <Navigate to="/login" replace />
+        )
+      }
+    />
+  );
 };
 
 function App() {
