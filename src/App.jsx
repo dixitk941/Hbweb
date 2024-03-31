@@ -27,7 +27,12 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+           <Route path="/privacypolicy" element={
+  <ProtectedRoute>
+    <PrivacyPolicy />
+  </ProtectedRoute>
+} />
+
 
           <Route path="/allproducts" element={<Allproducts />} />
           <Route path="/order" element={
