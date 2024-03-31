@@ -55,7 +55,7 @@ function Footer() {
               <img src="https://ecommerce-sk.vercel.app/pay.png" alt="" />
             </div>
           </div>
-          <pre className="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4" style={{ color: mode === 'dark' ? 'white' : '' }}>
+          <p className="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4" style={{ color: mode === 'dark' ? 'white' : '' }}>
             Your privacy is important to us. 
 
             Privacy Policy
@@ -98,7 +98,7 @@ Contact Us
 If you have any questions or concerns about our Privacy Policy, please contact us at [Insert Contact Information].
 
 Last updated: 31 march 2024
-          </pre>
+          </p>
         </div>
 
         <div className="bg-gray-200" style={{ backgroundColor: mode === 'dark' ? 'rgb(55 57 61)' : '', color: mode === 'dark' ? 'white' : '', }}>
