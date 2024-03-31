@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
   return (
     <div>
       <h1>Privacy Policy</h1>
-      <p>Privacy Policy
+      <pre>Privacy Policy
 
 Effective Date: 31 march 2024
 
@@ -44,7 +44,7 @@ Contact Us
 
 If you have any questions or concerns about our Privacy Policy, please contact us at [Insert Contact Information].
 
-Last updated: 31 march 2024</p>
+Last updated: 31 march 2024</pre>
     </div>
   );
 };
