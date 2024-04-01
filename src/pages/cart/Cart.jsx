@@ -198,7 +198,7 @@ function Cart() {
   </Layout>
 )
 
-  )
+
 }
 
 export default Cart
