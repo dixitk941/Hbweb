@@ -177,7 +177,7 @@ function Navbar() {
                   <a href="#" className="flex items-center text-gray-700 ">
                     <img
                       className="inline-block w-10 h-10 rounded-full"
-                      src="https://firebasestorage.googleapis.com/v0/b/hbweb-a7934.appspot.com/o/Luca-Profile-Avatars-3.webp?alt=media&token=482afe79-4492-4b83-bc76-fb892615cc9d"
+                      src="https://firebasestorage.googleapis.com/v0/b/hbweb-a7934.appspot.com/o/jeans%2Fimages.jpg?alt=media&token=0c551653-2105-486c-abe8-04c6e3e45cfb"
                       alt="Dan_Abromov" />
                   </a>
                 </div>
