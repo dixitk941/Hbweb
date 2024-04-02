@@ -7,6 +7,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { RxCross2 } from 'react-icons/rx'
 import { useSelector } from 'react-redux';
 
+
 function Navbar() {
   const context = useContext(myContext);
   const {mode, toggleMode} = context;
@@ -89,7 +90,7 @@ function Navbar() {
                     </Link>
                   </div>}
                   <div className="flow-root">
-                    <Link to={'UserDashboard'} className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer">
+                    <Link to={'user-dashboard'} className="-m-2 block p-2 font-medium text-gray-900 cursor-pointer">
                       <img
                         className="inline-block w-10 h-10 rounded-full"
                         src="https://firebasestorage.googleapis.com/v0/b/hbweb-a7934.appspot.com/o/jeans%2Fimages.jpg?alt=media&token=0c551653-2105-486c-abe8-04c6e3e45cfb"
