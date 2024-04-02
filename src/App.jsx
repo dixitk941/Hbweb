@@ -10,6 +10,7 @@ import Home from './pages/home/Home';
 import Order from './pages/order/Order';
 import Cart from './pages/cart/Cart';
 import Dashboard from './pages/admin/dashboard/Dashboard';
+import { ProtectedRouteForUser } from "./protectedRoute/ProtectedRouteForUser";
 import NoPage from './pages/nopage/NoPage';
 import UserDashboard from "./pages/user/UserDashboard";
 import MyState from './context/data/myState';
