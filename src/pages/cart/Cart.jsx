@@ -39,7 +39,7 @@ function Cart() {
     console.log(temp)
   }, [cartItems])
 
-  const shipping = parseInt(00);
+  const shipping = parseInt(100);
 
   const grandTotal = shipping + totalAmout;
   // console.log(grandTotal)
@@ -86,7 +86,7 @@ function Cart() {
     var options = {
       key: "rzp_live_uj6O9iijMXJU2B",
       key_secret: "6aCw4LRDUNLU6gKyimvO33yu",
-      amount: parseInt(grandTotal * 00),
+      amount: parseInt(grandTotal * 100),
       currency: "INR",
       order_receipt: 'order_rcptid_' + name,
       name: "Hitownbears",
