@@ -86,7 +86,7 @@ function Cart() {
     var options = {
       key: "rzp_live_uj6O9iijMXJU2B",
       key_secret: "6aCw4LRDUNLU6gKyimvO33yu",
-      amount: parseInt(grandTotal * 100),
+      amount: parseInt(grandTotal * 00),
       currency: "INR",
       order_receipt: 'order_rcptid_' + name,
       name: "Hitownbears",
