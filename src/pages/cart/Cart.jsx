@@ -39,7 +39,7 @@ function Cart() {
     console.log(temp)
   }, [cartItems])
 
-  const shipping = parseInt(100);
+  const shipping = parseInt(00);
 
   const grandTotal = shipping + totalAmout;
   // console.log(grandTotal)
