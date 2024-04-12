@@ -6,14 +6,22 @@ import {getAuth} from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
- apiKey: "AIzaSyAmArcMKfNsMRIpQIT23otEAZOz5oMKqkQ",
-  authDomain: "hbweb-a7934.firebaseapp.com",
-  databaseURL: "https://hbweb-a7934-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "hbweb-a7934",
-  storageBucket: "hbweb-a7934.appspot.com",
-  messagingSenderId: "318118672051",
-  appId: "1:318118672051:web:5e5b5618fcbac1e89c62c6",
-  measurementId: "G-8HTBH5FC5R"
+apiKey: "AIzaSyDLT5VGNrm5_Ks9gs8YlBvvS9rKrKjD2sY",
+
+  authDomain: "climate-check-360.firebaseapp.com",
+
+  databaseURL: "https://climate-check-360-default-rtdb.firebaseio.com",
+
+  projectId: "climate-check-360",
+
+  storageBucket: "climate-check-360.appspot.com",
+
+  messagingSenderId: "491332887364",
+
+  appId: "1:491332887364:web:6da35e591994f98f54ad11",
+
+  measurementId: "G-WL33DTYDFY"
+
 };
 
 // Initialize Firebase
