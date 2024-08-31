@@ -3,7 +3,7 @@ import Layout from '../../components/layout/Layout';
 import myContext from '../../context/data/myContext';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartSlice';
 import { fireDB } from '../../fireabase/FirebaseConfig';
@@ -13,6 +13,7 @@ function ProductInfo() {
     const { loading, setLoading } = context;
 
     const [products, setProducts] = useState(null);
+    const [similarProducts, setSimilarProducts] = useState([]);
     const [selectedSize, setSelectedSize] = useState('');
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const params = useParams();
@@ -22,6 +23,18 @@ function ProductInfo() {
         try {
             const productTemp = await getDoc(doc(fireDB, "products", params.id));
             setProducts(productTemp.data());
+
+            // Fetch similar products
+            const q = query(collection(fireDB, "products"), where("category", "==", productTemp.data().category));
+            const querySnapshot = await getDocs(q);
+            const similarItems = [];
+            querySnapshot.forEach((doc) => {
+                if (doc.id !== params.id) {  // Exclude the current product
+                    similarItems.push(doc.data());
+                }
+            });
+            setSimilarProducts(similarItems);
+
             setLoading(false);
         } catch (error) {
             console.log(error);
@@ -151,7 +164,35 @@ function ProductInfo() {
                                     ))}
                                 </div>
                             </div>
-                        </div>}
+                        </div>
+                    }
+                    
+                    {/* Similar Products Section */}
+                    {similarProducts.length > 0 && (
+                        <section className="text-gray-600 body-font mt-10">
+                            <div className="container px-5 py-10 mx-auto">
+                                <h2 className="text-2xl font-medium text-gray-900 mb-6">Similar Products</h2>
+                                <div className="flex flex-wrap -m-4">
+                                    {similarProducts.map((product, index) => (
+                                        <div key={index} className="lg:w-1/4 md:w-1/2 p-4">
+                                            <div className="border border-gray-200 rounded-lg overflow-hidden">
+                                                <img
+                                                    alt="product"
+                                                    className="w-full h-48 object-cover object-center"
+                                                    src={product.images[0]} // Assuming the first image is used for the preview
+                                                />
+                                                <div className="p-6">
+                                                    <h3 className="text-lg font-medium text-gray-900">{product.title}</h3>
+                                                    <p className="text-gray-600">₹{product.price}</p>
+                                                    <a href={`/product/${product.id}`} className="text-indigo-500 inline-flex items-center mt-3">View Details</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+                    )}
                 </div>
             </section>
         </Layout>
