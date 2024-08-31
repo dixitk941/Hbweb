@@ -6,11 +6,10 @@ import { toast } from 'react-toastify';
 
 function ProductCard() {
     const context = useContext(myContext);
-    const { mode, product, searchkey, setSearchkey, filterType, setFilterType, filterPrice, setFilterPrice } = context;
+    const { mode, product, searchkey, filterType, filterPrice } = context;
 
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart);
-    console.log(cartItems);
 
     const addCart = (product) => {
         dispatch(addToCart(product));
@@ -38,7 +37,7 @@ function ProductCard() {
                         .map((item, index) => {
                             const { title, price, coverImageUrl, id } = item;
                             return (
-                                <div key={index} className="p-4 md:w-1/3 lg:w-1/4 w-full">
+                                <div key={index} className="p-4 sm:w-1/2 md:w-1/3 lg:w-1/4 w-full">
                                     <div className="h-full border-2 hover:shadow-gray-100 hover:shadow-2xl transition-shadow duration-300 ease-in-out border-gray-200 border-opacity-60 rounded-2xl overflow-hidden" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '' }}>
                                         <div onClick={() => window.location.href = `/productinfo/${id}`} className="flex justify-center cursor-pointer">
                                             <img className="rounded-2xl w-full h-60 md:h-80 p-2 hover:scale-110 transition-transform duration-300 ease-in-out object-cover" src={coverImageUrl} alt="cover" />
