@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Testimonial.css'; // Ensure you create and import this CSS file
+import './Carousel.css'; // Ensure you create and import this CSS file
 
 function Testimonial() {
     const [currentIndex, setCurrentIndex] = useState(0);
