@@ -118,7 +118,7 @@ function ProductInfo() {
                                 <h2 className="text-sm title-font text-gray-500 tracking-widest">
                                     Hitownbears
                                 </h2>
-                                <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
+                                <h1 className="text-gray-900 dark:text-white text-3xl title-font font-medium mb-1">
                                     {products.title}
                                 </h1>
                                 <div className="flex mb-4">
