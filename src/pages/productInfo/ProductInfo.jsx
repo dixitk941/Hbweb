@@ -7,6 +7,7 @@ import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firesto
 import { toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartSlice';
 import { fireDB } from '../../fireabase/FirebaseConfig';
+import ProductCard from '../../components/ProductCard'; // Import ProductCard component
 
 function ProductInfo() {
     const context = useContext(myContext);
@@ -30,7 +31,7 @@ function ProductInfo() {
             const similarItems = [];
             querySnapshot.forEach((doc) => {
                 if (doc.id !== params.id) {  // Exclude the current product
-                    similarItems.push(doc.data());
+                    similarItems.push({ ...doc.data(), id: doc.id });
                 }
             });
             setSimilarProducts(similarItems);
@@ -175,18 +176,7 @@ function ProductInfo() {
                                 <div className="flex flex-wrap -m-4">
                                     {similarProducts.map((product, index) => (
                                         <div key={index} className="lg:w-1/4 md:w-1/2 p-4">
-                                            <div className="border border-gray-200 rounded-lg overflow-hidden">
-                                                <img
-                                                    alt="product"
-                                                    className="w-full h-48 object-cover object-center"
-                                                    src={product.images[0]} // Assuming the first image is used for the preview
-                                                />
-                                                <div className="p-6">
-                                                    <h3 className="text-lg font-medium text-gray-900">{product.title}</h3>
-                                                    <p className="text-gray-600">₹{product.price}</p>
-                                                    <a href={`/product/${product.id}`} className="text-indigo-500 inline-flex items-center mt-3">View Details</a>
-                                                </div>
-                                            </div>
+                                            <ProductCard product={product} />
                                         </div>
                                     ))}
                                 </div>
