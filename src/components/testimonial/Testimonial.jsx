@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Carousel.css'; // Ensure you create and import this CSS file
 
+
 function Testimonial() {
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -60,27 +61,26 @@ function Testimonial() {
     };
 
     return (
-        <div className="testimonial">
-            <h1 className="text-center text-3xl font-bold">Testimonial</h1>
-            <h2 className="text-center text-2xl font-semibold mb-10">
-                What our <span className="text-pink-500">customers</span> are saying
-            </h2>
-            <div className="carousel">
+        <div className="testimonial-container">
+            <h1 className="testimonial-title">What Our Customers Are Saying</h1>
+            <div className="testimonial-carousel">
                 <button className="carousel-button prev" onClick={handlePrev}>
-                    &lt;
+                    &#9664;
                 </button>
-                <div className="carousel-slide">
+                <div className="carousel-content">
                     <img
                         alt="testimonial"
                         className="testimonial-image"
                         src={testimonials[currentIndex].image}
                     />
                     <p className="testimonial-text">{testimonials[currentIndex].text}</p>
-                    <span className="testimonial-author">{testimonials[currentIndex].name}</span>
-                    <p className="testimonial-role">{testimonials[currentIndex].role}</p>
+                    <div className="testimonial-author">
+                        <span className="author-name">{testimonials[currentIndex].name}</span>
+                        <span className="author-role">{testimonials[currentIndex].role}</span>
+                    </div>
                 </div>
                 <button className="carousel-button next" onClick={handleNext}>
-                    &gt;
+                    &#9654;
                 </button>
             </div>
         </div>
