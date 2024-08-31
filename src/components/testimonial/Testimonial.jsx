@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import myContext from '../../context/data/myContext';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css'; // Import Swiper styles
+import 'swiper/swiper-bundle.css';
 
 // Import Swiper core and required modules
 import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
