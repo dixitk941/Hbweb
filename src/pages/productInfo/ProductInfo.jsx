@@ -7,11 +7,10 @@ import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firesto
 import { toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartSlice';
 import { fireDB } from '../../fireabase/FirebaseConfig';
-import ProductCard from './ProductCard'; // Import ProductCard component
 
 function ProductInfo() {
     const context = useContext(myContext);
-    const { loading, setLoading } = context;
+    const { loading, setLoading, mode } = context;
 
     const [products, setProducts] = useState(null);
     const [similarProducts, setSimilarProducts] = useState([]);
@@ -50,14 +49,9 @@ function ProductInfo() {
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.cart);
 
-    const addCart = () => {
-        if (selectedSize) {
-            const productWithSize = { ...products, size: selectedSize };
-            dispatch(addToCart(productWithSize));
-            toast.success('Added to cart');
-        } else {
-            toast.error('Please select a size');
-        }
+    const addCart = (product) => {
+        dispatch(addToCart(product));
+        toast.success('Added to cart');
     };
 
     useEffect(() => {
@@ -155,7 +149,7 @@ function ProductInfo() {
                                     </div>
                                 </div>
 
-                                <button onClick={addCart} className="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                                <button onClick={() => addCart({ ...products, size: selectedSize })} className="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                                     Add To Cart
                                 </button>
 
@@ -173,12 +167,25 @@ function ProductInfo() {
                         <section className="text-gray-600 body-font mt-10">
                             <div className="container px-5 py-10 mx-auto">
                                 <h2 className="text-2xl font-medium text-gray-900 mb-6">Similar Products</h2>
-                                <div className="flex flex-wrap -m-4">
-                                    {similarProducts.map((product, index) => (
-                                        <div key={index} className="lg:w-1/4 md:w-1/2 p-4">
-                                            <ProductCard product={product} />
-                                        </div>
-                                    ))}
+                                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                                    {similarProducts.map((item, index) => {
+                                        const { title, price, coverImageUrl, id } = item;
+                                        return (
+                                            <div key={index} className="p-4 border-2 hover:shadow-gray-100 hover:shadow-2xl transition-shadow duration-300 ease-in-out border-gray-200 border-opacity-60 rounded-2xl overflow-hidden" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '' }}>
+                                                <div onClick={() => window.location.href = `/productinfo/${id}`} className="flex justify-center cursor-pointer">
+                                                    <img className="rounded-2xl w-full h-60 md:h-80 p-2 hover:scale-110 transition-transform duration-300 ease-in-out object-cover" src={coverImageUrl} alt="cover" />
+                                                </div>
+                                                <div className="p-5 border-t-2">
+                                                    <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1" style={{ color: mode === 'dark' ? 'white' : '' }}>Hitownbears</h2>
+                                                    <h1 className="title-font text-lg font-medium text-gray-900 mb-3" style={{ color: mode === 'dark' ? 'white' : '' }}>{title}</h1>
+                                                    <p className="leading-relaxed mb-3" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{price}</p>
+                                                    <div className="flex justify-center">
+                                                        <button type="button" onClick={() => addCart(item)} className="focus:outline-none text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full py-2">Add To Cart</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         </section>
@@ -186,7 +193,7 @@ function ProductInfo() {
                 </div>
             </section>
         </Layout>
-    )
+    );
 }
 
 export default ProductInfo;
