@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import myContext from '../../context/data/myContext';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper.min.css';
-import SwiperCore, { Navigation, Pagination } from 'swiper';
+import 'swiper/swiper-bundle.min.css'; // Import Swiper styles
+
+// Import Swiper core and required modules
+import SwiperCore, { Navigation, Pagination, A11y } from 'swiper';
 
 // Install Swiper modules
-SwiperCore.use([Navigation, Pagination]);
+SwiperCore.use([Navigation, Pagination, A11y]);
 
 function Testimonial() {
     const context = useContext(myContext);
@@ -13,8 +15,8 @@ function Testimonial() {
 
     return (
         <div>
-            <section>
-                <div className="container mx-auto px-5 py-10">
+            <section className="py-10">
+                <div className="container mx-auto px-5">
                     <h1 className="text-center text-3xl font-bold" style={{ color: mode === 'dark' ? 'white' : '' }}>
                         Testimonial
                     </h1>
@@ -33,14 +35,11 @@ function Testimonial() {
                             768: {
                                 slidesPerView: 3,
                             },
-                            1024: {
-                                slidesPerView: 3,
-                            },
                         }}
-                        className="testimonial-slider"
                     >
+                        {/* Testimonial 1 */}
                         <SwiperSlide>
-                            <div className="text-center p-4">
+                            <div className="text-center">
                                 <img
                                     alt="testimonial"
                                     className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
@@ -53,12 +52,15 @@ function Testimonial() {
                                 <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase" style={{ color: mode === 'dark' ? '#ff4162' : '' }}>
                                     Prachi Dixit
                                 </h2>
-                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>Customer</p>
+                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                    Customer
+                                </p>
                             </div>
                         </SwiperSlide>
 
+                        {/* Testimonial 2 */}
                         <SwiperSlide>
-                            <div className="text-center p-4">
+                            <div className="text-center">
                                 <img
                                     alt="testimonial"
                                     className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
@@ -71,12 +73,15 @@ function Testimonial() {
                                 <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase" style={{ color: mode === 'dark' ? '#ff4162' : '' }}>
                                     Rohit Sharma
                                 </h2>
-                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>Customer</p>
+                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                    Customer
+                                </p>
                             </div>
                         </SwiperSlide>
 
+                        {/* Testimonial 3 */}
                         <SwiperSlide>
-                            <div className="text-center p-4">
+                            <div className="text-center">
                                 <img
                                     alt="testimonial"
                                     className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
@@ -89,12 +94,15 @@ function Testimonial() {
                                 <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase" style={{ color: mode === 'dark' ? '#ff4162' : '' }}>
                                     Sneha Verma
                                 </h2>
-                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>Customer</p>
+                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                    Customer
+                                </p>
                             </div>
                         </SwiperSlide>
 
+                        {/* Testimonial 4 */}
                         <SwiperSlide>
-                            <div className="text-center p-4">
+                            <div className="text-center">
                                 <img
                                     alt="testimonial"
                                     className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
@@ -107,12 +115,15 @@ function Testimonial() {
                                 <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase" style={{ color: mode === 'dark' ? '#ff4162' : '' }}>
                                     Amit Patel
                                 </h2>
-                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>Customer</p>
+                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                    Customer
+                                </p>
                             </div>
                         </SwiperSlide>
 
+                        {/* Testimonial 5 */}
                         <SwiperSlide>
-                            <div className="text-center p-4">
+                            <div className="text-center">
                                 <img
                                     alt="testimonial"
                                     className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
@@ -125,12 +136,15 @@ function Testimonial() {
                                 <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase" style={{ color: mode === 'dark' ? '#ff4162' : '' }}>
                                     Neha Kapoor
                                 </h2>
-                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>Customer</p>
+                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                    Customer
+                                </p>
                             </div>
                         </SwiperSlide>
 
+                        {/* Testimonial 6 */}
                         <SwiperSlide>
-                            <div className="text-center p-4">
+                            <div className="text-center">
                                 <img
                                     alt="testimonial"
                                     className="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-gray-200 bg-gray-100"
@@ -141,11 +155,14 @@ function Testimonial() {
                                 </p>
                                 <span className="inline-block h-1 w-10 rounded bg-pink-500 mt-6 mb-4" />
                                 <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm uppercase" style={{ color: mode === 'dark' ? '#ff4162' : '' }}>
-                                    Ravi Kumar
+                                    Rahul Joshi
                                 </h2>
-                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>Customer</p>
+                                <p className="text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                    Customer
+                                </p>
                             </div>
                         </SwiperSlide>
+
                     </Swiper>
                 </div>
             </section>
