@@ -102,6 +102,17 @@ function ProductInfo() {
                                 <button onClick={nextImage} className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center mr-2">
                                     {">"}
                                 </button>
+                                <div className="flex justify-center mt-4">
+                                    {products.images && products.images.map((image, index) => (
+                                        <img
+                                            key={index}
+                                            src={image}
+                                            alt={`Thumbnail ${index}`}
+                                            className={`w-16 h-16 object-cover mx-2 cursor-pointer ${currentImageIndex === index ? 'border-2 border-indigo-500' : ''}`}
+                                            onClick={() => setCurrentImageIndex(index)}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                                 <h2 className="text-sm title-font text-gray-500 tracking-widest">
@@ -119,7 +130,6 @@ function ProductInfo() {
                                         ₹{products.price}
                                     </span>
                                     <div className="ml-auto flex">
-                                        {/* Size selection buttons */}
                                         <div className="flex items-center space-x-4">
                                             <button onClick={() => setSelectedSize('M')} className={`bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center ${selectedSize === 'M' ? 'bg-gray-300' : ''}`}>
                                                 M
@@ -135,9 +145,11 @@ function ProductInfo() {
                                     Add To Cart
                                 </button>
 
-                                <p className="leading-relaxed border-b-2 mb-5 pb-5">
-                                    {products.description}
-                                </p>
+                                <div className="leading-relaxed border-b-2 mb-5 pb-5">
+                                    {products.description.split('. ').map((point, index) => (
+                                        <p key={index} className="mb-2">• {point.trim()}</p>
+                                    ))}
+                                </div>
                             </div>
                         </div>}
                 </div>
