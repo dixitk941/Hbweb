@@ -48,17 +48,17 @@ function Footer() {
               </h2>
               <nav className="list-none mb-10">
                 <li>
-                  <Link to="/returnpolicy" className="text-gray-600 hover:text-gray-800" style={{ color: mode === 'dark' ? 'white' : '' }}>
+                  <Link to="#" className="text-gray-600 hover:text-gray-800" style={{ color: mode === 'dark' ? 'white' : '' }}>
                     Return Policy
                   </Link>
                 </li>
                 <li>
-                  <Link to="/about" className="text-gray-600 hover:text-gray-800" style={{ color: mode === 'dark' ? 'white' : '' }}>
+                  <Link to="#" className="text-gray-600 hover:text-gray-800" style={{ color: mode === 'dark' ? 'white' : '' }}>
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contact" className="text-gray-600 hover:text-gray-800" style={{ color: mode === 'dark' ? 'white' : '' }}>
+                  <Link to="#" className="text-gray-600 hover:text-gray-800" style={{ color: mode === 'dark' ? 'white' : '' }}>
                     Contact Us
                   </Link>
                 </li>
@@ -99,7 +99,7 @@ function Footer() {
             <p className="text-sm text-gray-500 sm:ml-6 sm:mt-0 mt-4" style={{ color: mode === 'dark' ? 'white' : '' }}>
               © 2023 NeoCodeNex & dixitk941 —
               <a href="https://neocodenex.tech" rel="noopener noreferrer" className="text-gray-600 ml-1" target="_blank" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                www.Hitownbears.live
+                NeoCodeNex.tech
               </a>
             </p>
             <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
