@@ -7,7 +7,7 @@ import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firesto
 import { toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartSlice';
 import { fireDB } from '../../fireabase/FirebaseConfig';
-import ProductCard from '../../components/ProductCard'; // Import ProductCard component
+import ProductCard from './ProductCard'; // Import ProductCard component
 
 function ProductInfo() {
     const context = useContext(myContext);
