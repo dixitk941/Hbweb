@@ -1,24 +1,64 @@
 import React, { useContext, useState } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import myContext from '../../../context/data/myContext';
+
+// Firebase configuration hardcoded directly into the component
+const firebaseConfig = {
+apiKey: "AIzaSyAmArcMKfNsMRIpQIT23otEAZOz5oMKqkQ",
+  authDomain: "hbweb-a7934.firebaseapp.com",
+  databaseURL: "https://hbweb-a7934-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "hbweb-a7934",
+  storageBucket: "hbweb-a7934.appspot.com",
+  messagingSenderId: "318118672051",
+  appId: "1:318118672051:web:5e5b5618fcbac1e89c62c6",
+  measurementId: "G-8HTBH5FC5R"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
 
 function AddProduct() {
     const context = useContext(myContext);
     const { products, setProducts, addProduct } = context;
-    const [newImageUrl, setNewImageUrl] = useState('');
-    const [newCoverImageUrl, setNewCoverImageUrl] = useState('');
+    const [newImage, setNewImage] = useState(null);  // for general image
+    const [newCoverImage, setNewCoverImage] = useState(null);  // for cover image
+    const [imageUploadProgress, setImageUploadProgress] = useState(0);
+    const [coverImageUploadProgress, setCoverImageUploadProgress] = useState(0);
 
-    const addImageUrl = () => {
-        if (newImageUrl.trim() !== '') {
-            setProducts({ ...products, images: [...(products.images || []), newImageUrl] });
-            setNewImageUrl('');
-        }
+    const uploadImage = (image, isCover = false) => {
+        if (!image) return;
+        
+        const storageRef = ref(storage, `products/${image.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, image);
+
+        uploadTask.on(
+            'state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                if (isCover) setCoverImageUploadProgress(progress);
+                else setImageUploadProgress(progress);
+            },
+            (error) => {
+                console.error("Upload failed", error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    if (isCover) {
+                        setProducts({ ...products, coverImageUrl: downloadURL });
+                    } else {
+                        setProducts({ ...products, images: [...(products.images || []), downloadURL] });
+                    }
+                });
+            }
+        );
     };
 
-    const addCoverImageUrl = () => {
-        if (newCoverImageUrl.trim() !== '') {
-            setProducts({ ...products, coverImageUrl: newCoverImageUrl });
-            setNewCoverImageUrl('');
-        }
+    const handleImageChange = (e, isCover = false) => {
+        const file = e.target.files[0];
+        if (isCover) setNewCoverImage(file);
+        else setNewImage(file);
     };
 
     return (
@@ -50,25 +90,21 @@ function AddProduct() {
                     </div>
                     <div>
                         <input
-                            type="text"
-                            value={newImageUrl}
-                            onChange={(e) => setNewImageUrl(e.target.value)}
-                            name='imageurl'
+                            type="file"
+                            onChange={(e) => handleImageChange(e, false)}
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
-                            placeholder='Enter image URL'
                         />
-                        <button onClick={addImageUrl} className='bg-gray-600 text-white font-bold px-2 py-2 rounded-lg'>Add Image</button>
+                        <button onClick={() => uploadImage(newImage, false)} className='bg-gray-600 text-white font-bold px-2 py-2 rounded-lg'>Upload Image</button>
+                        <progress value={imageUploadProgress} max="100"></progress>
                     </div>
                     <div>
                         <input
-                            type="text"
-                            value={newCoverImageUrl}
-                            onChange={(e) => setNewCoverImageUrl(e.target.value)}
-                            name='coverimageurl'
+                            type="file"
+                            onChange={(e) => handleImageChange(e, true)}
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
-                            placeholder='Enter cover image URL'
                         />
-                        <button onClick={addCoverImageUrl} className='bg-gray-600 text-white font-bold px-2 py-2 rounded-lg'>Add Cover Image</button>
+                        <button onClick={() => uploadImage(newCoverImage, true)} className='bg-gray-600 text-white font-bold px-2 py-2 rounded-lg'>Upload Cover Image</button>
+                        <progress value={coverImageUploadProgress} max="100"></progress>
                     </div>
                     <div>
                         {products?.images?.map((image, index) => (
