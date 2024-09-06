@@ -23,7 +23,7 @@ const db = getFirestore(app);
 
 function AddProduct() {
     const context = useContext(myContext);
-    const { products, setProducts, addProduct } = context;
+    const { products, setProducts } = context;
     const [newCoverImage, setNewCoverImage] = useState(null);  // For cover image
     const [newImages, setNewImages] = useState([]);  // For additional images
     const [uploadProgress, setUploadProgress] = useState(0);
@@ -66,26 +66,29 @@ function AddProduct() {
             let coverImageUrl = '';
             let imageUrls = [];
 
+            // Upload cover image if selected
             if (newCoverImage) {
                 coverImageUrl = await uploadImage(newCoverImage);
             }
 
+            // Upload additional images
             for (let i = 0; i < newImages.length; i++) {
                 const imageUrl = await uploadImage(newImages[i]);
                 imageUrls.push(imageUrl);
             }
 
+            // Prepare product data
             const productData = {
                 ...products,
-                coverImageUrl,
-                images: imageUrls,
+                coverImageUrl,  // Single cover image URL
+                images: imageUrls,  // Array of additional images
             };
 
-            // Submit product to Firestore
+            // Add product to Firestore
             const docRef = await addDoc(collection(db, 'products'), productData);
             console.log('Document written with ID: ', docRef.id);
 
-            // Clear form
+            // Reset form after submission
             setProducts({});
             setNewCoverImage(null);
             setNewImages([]);
@@ -123,22 +126,24 @@ function AddProduct() {
                             placeholder='Product price'
                         />
                     </div>
+                    {/* Cover Image Upload */}
                     <div>
+                        <label className='text-white mb-2'>Upload Cover Image</label>
                         <input
                             type="file"
                             onChange={handleCoverImageChange}
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                         />
-                        <label className='text-white mb-2'>Upload Cover Image</label>
                     </div>
+                    {/* Additional Images Upload */}
                     <div>
+                        <label className='text-white mb-2'>Upload Additional Images</label>
                         <input
                             type="file"
                             multiple
                             onChange={handleImagesChange}
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                         />
-                        <label className='text-white mb-2'>Upload Additional Images</label>
                     </div>
                     <div>
                         <input
@@ -161,6 +166,7 @@ function AddProduct() {
                             placeholder='Product description'
                         ></textarea>
                     </div>
+                    {/* Submit Button */}
                     <div className='flex justify-center mb-3'>
                         <button
                             onClick={handleSubmit}
@@ -168,6 +174,7 @@ function AddProduct() {
                             Add Product
                         </button>
                     </div>
+                    {/* Upload Progress */}
                     <div className='text-white'>
                         Upload Progress: {uploadProgress}%
                     </div>
