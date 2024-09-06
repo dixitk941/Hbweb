@@ -28,6 +28,7 @@ function AddProduct() {
     const [newImages, setNewImages] = useState([]);  // Multiple images
     const [uploadProgress, setUploadProgress] = useState(0);
     const [isSubmitting, setIsSubmitting] = useState(false); // Loading indicator for form submission
+    const [error, setError] = useState(null); // Error handling
 
     // Upload image to Firebase Storage
     const uploadImage = (image) => {
@@ -64,6 +65,15 @@ function AddProduct() {
     // Submit product to Firestore
     const handleSubmit = async () => {
         setIsSubmitting(true);
+        setError(null);  // Clear any previous errors
+
+        // Validate form input
+        if (!products.title || !products.price || !products.category || !products.description) {
+            setError('Please fill all fields');
+            setIsSubmitting(false);
+            return;
+        }
+
         try {
             let coverImageUrl = '';
             let imageUrls = [];
@@ -97,6 +107,7 @@ function AddProduct() {
             alert('Product added successfully!');
         } catch (error) {
             console.error('Error adding product:', error);
+            setError('Error adding product. Please try again.');
         } finally {
             setIsSubmitting(false);
         }
@@ -106,6 +117,9 @@ function AddProduct() {
         <div className='flex justify-center items-center min-h-screen bg-gray-900'>
             <div className='bg-gray-800 p-8 rounded-xl w-full max-w-lg'>
                 <h1 className='text-center text-white text-2xl mb-6 font-bold'>Add Product</h1>
+
+                {/* Error Message */}
+                {error && <div className='text-red-500 text-center mb-4'>{error}</div>}
 
                 {/* Product Title */}
                 <input
