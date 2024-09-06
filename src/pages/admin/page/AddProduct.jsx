@@ -6,14 +6,12 @@ import myContext from '../../../context/data/myContext';
 
 // Firebase configuration
 const firebaseConfig = {
-apiKey: "AIzaSyAmArcMKfNsMRIpQIT23otEAZOz5oMKqkQ",
-  authDomain: "hbweb-a7934.firebaseapp.com",
-  databaseURL: "https://hbweb-a7934-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "hbweb-a7934",
-  storageBucket: "hbweb-a7934.appspot.com",
-  messagingSenderId: "318118672051",
-  appId: "1:318118672051:web:5e5b5618fcbac1e89c62c6",
-  measurementId: "G-8HTBH5FC5R"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
 };
 
 // Initialize Firebase
@@ -23,26 +21,22 @@ const db = getFirestore(app);
 
 function AddProduct() {
     const context = useContext(myContext);
-    const { products, setProducts } = context;
-    const [newImage, setNewImage] = useState(null);  // for general images
-    const [newCoverImage, setNewCoverImage] = useState(null);  // for cover image
-    const [imageUploadProgress, setImageUploadProgress] = useState(0);
-    const [coverImageUploadProgress, setCoverImageUploadProgress] = useState(0);
-    const [productList, setProductList] = useState([]); // Stores list of products to be submitted
+    const { products, setProducts, addProduct } = context;
+    const [newCoverImage, setNewCoverImage] = useState(null);  // For cover image
+    const [newImages, setNewImages] = useState([]);  // For additional images
+    const [uploadProgress, setUploadProgress] = useState(0);
 
-    const uploadImage = (image, isCover = false) => {
-        if (!image) return Promise.reject('No image selected');
-        
-        const storageRef = ref(storage, `products/${image.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, image);
-
+    // Upload image to Firebase Storage and return the download URL
+    const uploadImage = (image) => {
         return new Promise((resolve, reject) => {
+            const storageRef = ref(storage, `products/${image.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, image);
+
             uploadTask.on(
                 'state_changed',
                 (snapshot) => {
                     const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    if (isCover) setCoverImageUploadProgress(progress);
-                    else setImageUploadProgress(progress);
+                    setUploadProgress(progress);
                 },
                 (error) => reject(error),
                 () => {
@@ -52,57 +46,51 @@ function AddProduct() {
         });
     };
 
-    const handleImageChange = (e, isCover = false) => {
+    // Handle file input change for cover image
+    const handleCoverImageChange = (e) => {
         const file = e.target.files[0];
-        if (isCover) setNewCoverImage(file);
-        else setNewImage(file);
+        setNewCoverImage(file);
     };
 
-    const handleAddProduct = async () => {
-        try {
-            // Upload cover image and get URL
-            const coverImageUrl = await uploadImage(newCoverImage, true);
+    // Handle file input change for additional images
+    const handleImagesChange = (e) => {
+        const files = Array.from(e.target.files);
+        setNewImages(files);
+    };
 
-            // Upload other images and get URLs
-            const imageUrls = [];
-            if (newImage) {
-                const imageUrl = await uploadImage(newImage, false);
+    // Submit product to Firestore
+    const handleSubmit = async () => {
+        try {
+            let coverImageUrl = '';
+            let imageUrls = [];
+
+            if (newCoverImage) {
+                coverImageUrl = await uploadImage(newCoverImage);
+            }
+
+            for (let i = 0; i < newImages.length; i++) {
+                const imageUrl = await uploadImage(newImages[i]);
                 imageUrls.push(imageUrl);
             }
 
-            // Create product data
             const productData = {
                 ...products,
-                images: imageUrls,
                 coverImageUrl,
+                images: imageUrls,
             };
 
-            // Add product to product list
-            setProductList([...productList, productData]);
+            // Submit product to Firestore
+            const docRef = await addDoc(collection(db, 'products'), productData);
+            console.log('Document written with ID: ', docRef.id);
 
-            // Clear inputs after adding product
+            // Clear form
             setProducts({});
             setNewCoverImage(null);
-            setNewImage(null);
+            setNewImages([]);
+            setUploadProgress(0);
+            alert('Product added successfully!');
         } catch (error) {
-            console.error("Error adding product", error);
-        }
-    };
-
-    const handleSubmitProducts = async () => {
-        try {
-            const productCollection = collection(db, 'products');
-
-            // Loop through productList and add each product to Firestore
-            for (const product of productList) {
-                await addDoc(productCollection, product);
-            }
-
-            // Clear product list after submission
-            setProductList([]);
-            alert("Products submitted successfully!");
-        } catch (error) {
-            console.error("Error submitting products", error);
+            console.error('Error adding product:', error);
         }
     };
 
@@ -136,20 +124,19 @@ function AddProduct() {
                     <div>
                         <input
                             type="file"
-                            onChange={(e) => handleImageChange(e, false)}
+                            onChange={handleCoverImageChange}
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                         />
-                        <button onClick={() => uploadImage(newImage, false)} className='bg-gray-600 text-white font-bold px-2 py-2 rounded-lg'>Upload Image</button>
-                        <progress value={imageUploadProgress} max="100"></progress>
+                        <label className='text-white mb-2'>Upload Cover Image</label>
                     </div>
                     <div>
                         <input
                             type="file"
-                            onChange={(e) => handleImageChange(e, true)}
+                            multiple
+                            onChange={handleImagesChange}
                             className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                         />
-                        <button onClick={() => uploadImage(newCoverImage, true)} className='bg-gray-600 text-white font-bold px-2 py-2 rounded-lg'>Upload Cover Image</button>
-                        <progress value={coverImageUploadProgress} max="100"></progress>
+                        <label className='text-white mb-2'>Upload Additional Images</label>
                     </div>
                     <div>
                         <input
@@ -174,17 +161,13 @@ function AddProduct() {
                     </div>
                     <div className='flex justify-center mb-3'>
                         <button
-                            onClick={handleAddProduct}
+                            onClick={handleSubmit}
                             className='bg-yellow-500 w-full text-black font-bold px-2 py-2 rounded-lg'>
                             Add Product
                         </button>
                     </div>
-                    <div className='flex justify-center mb-3'>
-                        <button
-                            onClick={handleSubmitProducts}
-                            className='bg-green-500 w-full text-black font-bold px-2 py-2 rounded-lg'>
-                            Submit All Products
-                        </button>
+                    <div className='text-white'>
+                        Upload Progress: {uploadProgress}%
                     </div>
                 </div>
             </div>
