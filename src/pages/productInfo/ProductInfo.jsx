@@ -6,15 +6,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartSlice';
-import { fireDB } from '../../fireabase/FirebaseConfig';
+import { fireDB } from '../../firebase/FirebaseConfig';
+import { Radio, RadioGroup } from '@headlessui/react';
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ');
+}
 
 function ProductInfo() {
     const context = useContext(myContext);
     const { loading, setLoading, mode } = context;
 
-    const [products, setProducts] = useState(null);
+    const [product, setProduct] = useState(null);
     const [similarProducts, setSimilarProducts] = useState([]);
     const [selectedSize, setSelectedSize] = useState('');
+    const [selectedColor, setSelectedColor] = useState('');
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const params = useParams();
 
@@ -22,14 +28,14 @@ function ProductInfo() {
         setLoading(true);
         try {
             const productTemp = await getDoc(doc(fireDB, "products", params.id));
-            setProducts(productTemp.data());
+            setProduct(productTemp.data());
 
             // Fetch similar products
             const q = query(collection(fireDB, "products"), where("category", "==", productTemp.data().category));
             const querySnapshot = await getDocs(q);
             const similarItems = [];
             querySnapshot.forEach((doc) => {
-                if (doc.id !== params.id) {  // Exclude the current product
+                if (doc.id !== params.id) {
                     similarItems.push({ ...doc.data(), id: doc.id });
                 }
             });
@@ -59,14 +65,14 @@ function ProductInfo() {
     }, [cartItems]);
 
     const nextImage = () => {
-        if (products && products.images) {
-            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % products.images.length);
+        if (product && product.images) {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % product.images.length);
         }
     };
 
     const prevImage = () => {
-        if (products && products.images) {
-            setCurrentImageIndex((prevIndex) => (prevIndex - 1 + products.images.length) % products.images.length);
+        if (product && product.images) {
+            setCurrentImageIndex((prevIndex) => (prevIndex - 1 + product.images.length) % product.images.length);
         }
     };
 
@@ -91,104 +97,129 @@ function ProductInfo() {
         document.addEventListener('touchmove', handleTouchMove);
     };
 
+    if (loading) return <p>Loading...</p>; // Optionally add a loading state
+
     return (
         <Layout>
             <section className="text-gray-600 body-font overflow-hidden">
                 <div className="container px-5 py-10 mx-auto">
-                    {products &&
+                    {product && (
                         <div className="lg:w-4/5 mx-auto flex flex-wrap">
                             <div className="lg:w-1/3 w-full lg:h-auto object-cover object-center rounded relative">
                                 <img
                                     alt="ecommerce"
-                                    className="w-full"
-                                    src={products.images ? products.images[currentImageIndex] : ''}
+                                    className="w-full h-full object-cover object-center"
+                                    src={product.images[currentImageIndex].src}
                                     onTouchStart={handleTouchStart}
                                 />
-                                <button onClick={prevImage} className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center ml-2">
-                                    {"<"}
-                                </button>
-                                <button onClick={nextImage} className="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center mr-2">
-                                    {">"}
-                                </button>
-                                <div className="flex justify-center mt-4">
-                                    {products.images && products.images.map((image, index) => (
-                                        <img
-                                            key={index}
-                                            src={image}
-                                            alt={`Thumbnail ${index}`}
-                                            className={`w-16 h-16 object-cover mx-2 cursor-pointer ${currentImageIndex === index ? 'border-2 border-indigo-500' : ''}`}
-                                            onClick={() => setCurrentImageIndex(index)}
-                                        />
-                                    ))}
+                                <div className="flex justify-between mt-2">
+                                    <button onClick={prevImage} className="text-gray-600 hover:text-gray-900">
+                                        &lt;
+                                    </button>
+                                    <button onClick={nextImage} className="text-gray-600 hover:text-gray-900">
+                                        &gt;
+                                    </button>
                                 </div>
                             </div>
-                            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                                <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                                    Hitownbears
-                                </h2>
-                                <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                                    {products.title}
-                                </h1>
+
+                            <div className="lg:w-2/3 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                                <h1 className="text-3xl font-medium title-font text-gray-900">{product.name}</h1>
                                 <div className="flex mb-4">
-                                    {/* Rating icons */}
-                                </div>
-
-                                <div className="flex items-center mb-4">
-                                    <span className="title-font font-medium text-2xl text-gray-900">
-                                        ₹{products.price}
+                                    <span className="flex items-center">
+                                        {[0, 1, 2, 3, 4].map((rating) => (
+                                            <span
+                                                key={rating}
+                                                className={classNames(
+                                                    product.reviews.average > rating ? 'text-yellow-500' : 'text-gray-200',
+                                                    'h-5 w-5 flex-shrink-0',
+                                                )}
+                                            />
+                                        ))}
                                     </span>
-                                    <div className="ml-auto flex">
-                                        <div className="flex items-center space-x-4">
-                                            <button onClick={() => setSelectedSize('M')} className={`bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center ${selectedSize === 'M' ? 'bg-gray-300' : ''}`}>
-                                                M
-                                            </button>
-                                            <button onClick={() => setSelectedSize('L')} className={`bg-gray-200 hover:bg-gray-300 rounded-full w-10 h-10 flex items-center justify-center ${selectedSize === 'L' ? 'bg-gray-300' : ''}`}>
-                                                L
-                                            </button>
-                                        </div>
+                                    <span className="text-gray-600 ml-3">{product.reviews.totalCount} reviews</span>
+                                </div>
+                                <p className="leading-relaxed">{product.description}</p>
+                                <div className="mt-6">
+                                    <span className="title-font font-medium text-2xl text-gray-900">{product.price}</span>
+                                </div>
+
+                                <form className="mt-10">
+                                    {/* Colors */}
+                                    <div>
+                                        <h3 className="text-sm font-medium text-gray-900">Color</h3>
+                                        <fieldset aria-label="Choose a color" className="mt-4">
+                                            <RadioGroup value={selectedColor} onChange={setSelectedColor} className="flex items-center space-x-3">
+                                                {product.colors.map((color) => (
+                                                    <Radio
+                                                        key={color.name}
+                                                        value={color}
+                                                        className={classNames(
+                                                            color.selectedClass,
+                                                            'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none'
+                                                        )}
+                                                    >
+                                                        <span
+                                                            aria-hidden="true"
+                                                            className={classNames(color.class, 'h-8 w-8 rounded-full border border-black border-opacity-10')}
+                                                        />
+                                                    </Radio>
+                                                ))}
+                                            </RadioGroup>
+                                        </fieldset>
                                     </div>
-                                </div>
 
-                                <button onClick={() => addCart({ ...products, size: selectedSize })} className="flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                                    Add To Cart
-                                </button>
+                                    {/* Sizes */}
+                                    <div className="mt-10">
+                                        <div className="flex items-center justify-between">
+                                            <h3 className="text-sm font-medium text-gray-900">Size</h3>
+                                            <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                                Size guide
+                                            </a>
+                                        </div>
+                                        <fieldset aria-label="Choose a size" className="mt-4">
+                                            <RadioGroup
+                                                value={selectedSize}
+                                                onChange={setSelectedSize}
+                                                className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4"
+                                            >
+                                                {product.sizes.map((size) => (
+                                                    <Radio
+                                                        key={size.name}
+                                                        value={size}
+                                                        className={classNames(
+                                                            size.inStock ? 'cursor-pointer bg-white text-gray-900 shadow-sm' : 'cursor-not-allowed bg-gray-50 text-gray-200',
+                                                            'group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none'
+                                                        )}
+                                                    >
+                                                        <span>{size.name}</span>
+                                                        {size.inStock ? null : (
+                                                            <span aria-hidden="true" className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
+                                                                <svg
+                                                                    stroke="currentColor"
+                                                                    viewBox="0 0 100 100"
+                                                                    preserveAspectRatio="none"
+                                                                    className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
+                                                                >
+                                                                    <line x1={0} x2={100} y1={100} y2={0} vectorEffect="non-scaling-stroke" />
+                                                                </svg>
+                                                            </span>
+                                                        )}
+                                                    </Radio>
+                                                ))}
+                                            </RadioGroup>
+                                        </fieldset>
+                                    </div>
 
-                                <div className="leading-relaxed border-b-2 mb-5 pb-5">
-                                    {products.description.split('. ').map((point, index) => (
-                                        <p key={index} className="mb-2">• {point.trim()}</p>
-                                    ))}
-                                </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => addCart(product)}
+                                        className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                    >
+                                        Add to bag
+                                    </button>
+                                </form>
                             </div>
                         </div>
-                    }
-                    
-                    {/* Similar Products Section */}
-                    {similarProducts.length > 0 && (
-                        <section className="text-gray-600 body-font mt-10">
-                            <div className="container px-5 py-10 mx-auto">
-                                <h2 className="text-2xl font-medium text-gray-900 mb-6">Similar Products</h2>
-                                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                                    {similarProducts.map((item, index) => {
-                                        const { title, price, coverImageUrl, id } = item;
-                                        return (
-                                            <div key={index} className="p-4 border-2 hover:shadow-gray-100 hover:shadow-2xl transition-shadow duration-300 ease-in-out border-gray-200 border-opacity-60 rounded-2xl overflow-hidden" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '' }}>
-                                                <div onClick={() => window.location.href = `/productinfo/${id}`} className="flex justify-center cursor-pointer">
-                                                    <img className="rounded-2xl w-full h-60 md:h-80 p-2 hover:scale-110 transition-transform duration-300 ease-in-out object-cover" src={coverImageUrl} alt="cover" />
-                                                </div>
-                                                <div className="p-5 border-t-2">
-                                                    <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1" style={{ color: mode === 'dark' ? 'white' : '' }}>Hitownbears</h2>
-                                                    <h1 className="title-font text-lg font-medium text-gray-900 mb-3" style={{ color: mode === 'dark' ? 'white' : '' }}>{title}</h1>
-                                                    <p className="leading-relaxed mb-3" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{price}</p>
-                                                    <div className="flex justify-center">
-                                                        <button type="button" onClick={() => addCart(item)} className="focus:outline-none text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full py-2">Add To Cart</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        </section>
                     )}
                 </div>
             </section>
