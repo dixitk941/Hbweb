@@ -7,7 +7,6 @@ import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firesto
 import { toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartSlice';
 import { fireDB } from '../../firebase/FirebaseConfig';
-import { SomeIcon } from '@heroicons/react/20/solid';
 import { Radio, RadioGroup } from '@headlessui/react';
 
 function classNames(...classes) {
@@ -128,7 +127,7 @@ function ProductInfo() {
                                 <div className="flex mb-4">
                                     <span className="flex items-center">
                                         {[0, 1, 2, 3, 4].map((rating) => (
-                                            <StarIcon
+                                            <span
                                                 key={rating}
                                                 className={classNames(
                                                     product.reviews.average > rating ? 'text-yellow-500' : 'text-gray-200',
