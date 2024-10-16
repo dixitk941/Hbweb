@@ -7,7 +7,6 @@ import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firesto
 import { toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartSlice';
 import { fireDB } from '../../fireabase/FirebaseConfig';
-import { Radio, RadioGroup } from '@headlessui/react';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -147,25 +146,21 @@ function ProductInfo() {
                                     {/* Colors */}
                                     <div>
                                         <h3 className="text-sm font-medium text-gray-900">Color</h3>
-                                        <fieldset aria-label="Choose a color" className="mt-4">
-                                            <RadioGroup value={selectedColor} onChange={setSelectedColor} className="flex items-center space-x-3">
-                                                {product.colors.map((color) => (
-                                                    <Radio
-                                                        key={color.name}
-                                                        value={color}
-                                                        className={classNames(
-                                                            color.selectedClass,
-                                                            'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none'
-                                                        )}
-                                                    >
-                                                        <span
-                                                            aria-hidden="true"
-                                                            className={classNames(color.class, 'h-8 w-8 rounded-full border border-black border-opacity-10')}
-                                                        />
-                                                    </Radio>
-                                                ))}
-                                            </RadioGroup>
-                                        </fieldset>
+                                        <div className="mt-4">
+                                            {product.colors.map((color) => (
+                                                <label key={color.name} className="flex items-center">
+                                                    <input
+                                                        type="radio"
+                                                        name="color"
+                                                        value={color.name}
+                                                        checked={selectedColor === color.name}
+                                                        onChange={() => setSelectedColor(color.name)}
+                                                        className="mr-2"
+                                                    />
+                                                    <span className={`h-8 w-8 rounded-full border ${color.class}`} />
+                                                </label>
+                                            ))}
+                                        </div>
                                     </div>
 
                                     {/* Sizes */}
@@ -176,38 +171,22 @@ function ProductInfo() {
                                                 Size guide
                                             </a>
                                         </div>
-                                        <fieldset aria-label="Choose a size" className="mt-4">
-                                            <RadioGroup
-                                                value={selectedSize}
-                                                onChange={setSelectedSize}
-                                                className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4"
-                                            >
-                                                {product.sizes.map((size) => (
-                                                    <Radio
-                                                        key={size.name}
-                                                        value={size}
-                                                        className={classNames(
-                                                            size.inStock ? 'cursor-pointer bg-white text-gray-900 shadow-sm' : 'cursor-not-allowed bg-gray-50 text-gray-200',
-                                                            'group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none'
-                                                        )}
-                                                    >
-                                                        <span>{size.name}</span>
-                                                        {size.inStock ? null : (
-                                                            <span aria-hidden="true" className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
-                                                                <svg
-                                                                    stroke="currentColor"
-                                                                    viewBox="0 0 100 100"
-                                                                    preserveAspectRatio="none"
-                                                                    className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                                                >
-                                                                    <line x1={0} x2={100} y1={100} y2={0} vectorEffect="non-scaling-stroke" />
-                                                                </svg>
-                                                            </span>
-                                                        )}
-                                                    </Radio>
-                                                ))}
-                                            </RadioGroup>
-                                        </fieldset>
+                                        <div className="mt-4 grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                                            {product.sizes.map((size) => (
+                                                <label key={size.name} className="flex items-center">
+                                                    <input
+                                                        type="radio"
+                                                        name="size"
+                                                        value={size.name}
+                                                        checked={selectedSize === size.name}
+                                                        onChange={() => setSelectedSize(size.name)}
+                                                        className={`group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase ${size.inStock ? 'cursor-pointer bg-white text-gray-900 shadow-sm' : 'cursor-not-allowed bg-gray-50 text-gray-200'}`}
+                                                        disabled={!size.inStock}
+                                                    />
+                                                    <span>{size.name}</span>
+                                                </label>
+                                            ))}
+                                        </div>
                                     </div>
 
                                     <button
