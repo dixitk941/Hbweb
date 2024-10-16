@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartSlice';
-import { fireDB } from '../../firebase/FirebaseConfig';
+import { fireDB } from '../../fireabase/FirebaseConfig';
 import { Radio, RadioGroup } from '@headlessui/react';
 
 function classNames(...classes) {
