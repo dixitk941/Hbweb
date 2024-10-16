@@ -7,7 +7,7 @@ import { doc, getDoc, collection, query, where, getDocs } from 'firebase/firesto
 import { toast } from 'react-toastify';
 import { addToCart } from '../../redux/cartSlice';
 import { fireDB } from '../../firebase/FirebaseConfig';
-import { StarIcon } from '@heroicons/react/20/solid';
+import { SomeIcon } from '@heroicons/react/20/solid';
 import { Radio, RadioGroup } from '@headlessui/react';
 
 function classNames(...classes) {
